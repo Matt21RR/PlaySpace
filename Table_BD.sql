@@ -408,4 +408,3 @@ INSERT INTO PAPELERA_DE_RECICLAJE (MENSAJE) VALUES ('Cuenta Borrada');
 
 #=====================================================
 #=====================================================
-select DATE FROM *;
