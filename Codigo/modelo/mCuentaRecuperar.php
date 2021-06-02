@@ -32,7 +32,6 @@
             }
 
             $connect -> close();
-            
             return $ID_USUARIO;
         }
 

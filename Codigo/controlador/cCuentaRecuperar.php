@@ -14,9 +14,8 @@
             echo "<script>console.log('cCuentaRecuperar::buscarCuenta')</script>";
             return $ID_USUARIO;
         }
-
         /**
-         * Actualizar la contraseña de la cuenta
+         * Actualizar la contraseña de una cuenta
          * @param   entero  ID del usuario
          * @param   texto   Nueva contraseña
          */

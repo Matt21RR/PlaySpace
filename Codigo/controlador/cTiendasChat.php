@@ -5,29 +5,17 @@
     class cTiendasChat extends mTiendasChat
     {
         /**
-         * Obtiene y muestra por consola los mensajes junto a los ID del usuario quien lo envia,
-         * recibidos de una tienda
-         * @param   entero  ID de la tienda
-         * @return  lista   Lista de los mensajes recibidos junto a los ID de quienes lo envian
-         */
-        static function mostrarMensajes($ID_TIENDA){
-            $chat_tienda = self::mensajesRecibidos($ID_TIENDA);
-
-            echo "<script>console.log('cTiendasChat::mostrarMensajes')</script>";
-            return $chat_tienda;
-        }
-
-        /**
          * Obtiene y muestra por consola los mensajes junto al ID del usuario que lo envia,
          * recibidos de una tienda
          * @param   entero  ID de la tienda
+         * @param   entero  ID del usuario del cual desea el chat
+         *          null    Todos los mensajes recibidos de la tienda
          * @return  lista   Lista de los mensajes recibidos junto a los ID de quien lo envia
          */
-        static function mostrarMensajeUsuario($ID_TIENDA, $ID_REMITENTE){
+        static function mostrarMensajeUsuario($ID_TIENDA, $ID_REMITENTE=null){
             $chat_tienda = self::pedirChat($ID_TIENDA, $ID_REMITENTE);
             return $chat_tienda;
         }
-
         /**
          * Enviar mensajes para USUARIOS a una tienda
          * @param   entero  ID de la tienda a la cual se le enviara el mensaje
@@ -41,7 +29,6 @@
                 echo "<script>console.error('Mensaje no enviado')</script>";
             }
         }
-
         /**
          * Responde la TIENDA el mensaje realizado por un usuario
          * @param   entero  ID tienda

@@ -4,7 +4,7 @@
 
     class mTiendaCrear 
     {
-// ------- |INSERT| INFO_TIENDA/PRODUCTOS --------------------------------------------------------
+// ------- CREAR INFO_TIENDA/PRODUCTOS --------------------------------------------------------
         /**
          * Creación de tiendas
          * @param   entero  id del usuario|Solo hacer mension del mismo|no subministrar ningun valor
@@ -38,7 +38,6 @@
             echo "<script>console.log('mCrearTienda::enviarInformacionTienda')</script>";
             $connect -> close();
         }
-
         /**
          * Subir productos a una tienda especifica
          * @param   entero  ID de la tienda en donde se subira el producto
@@ -59,9 +58,7 @@
             echo "<script>console.log('mTiendaCrear::agregarProductos')</script>";
             $connect -> close();
         }
-
-//------------------------------------------------------------------------------------------------
-// ------- |UPDATE| INFO_TIENDA/FIN_PUBLICACION --------------------------------------------------
+// ------- ACTUALIZAR INFO_TIENDA/FIN_PUBLICACION --------------------------------------------------
         /**
          * Actualiza la infromación de la tienda
          * @param   entero  id del usuario|Solo hacer mension del mismo|no subministrar ningun valor
@@ -72,12 +69,9 @@
          * @param   texto   nuevo correo de la tienda
          * @param   texto   nueva dirección de la tienda
          */
-        static function actualizarInformacionTienda($ID_USUARIO, 
-                                            $ID_TIENDA, 
-                                            $NUEVO_NOMBRE_TIENDA, 
-                                            $NUEVA_DESCRIPCION, 
-                                            $NUEVO_TELEFONO, 
-                                            $NUEVO_CORREO, 
+        static function actualizarInformacionTienda($ID_USUARIO, $ID_TIENDA, 
+                                            $NUEVO_NOMBRE_TIENDA, $NUEVA_DESCRIPCION, 
+                                            $NUEVO_TELEFONO, $NUEVO_CORREO, 
                                             $NUEVA_DIRECCION){
             $connect = conexionBaseDatos();
 
@@ -96,7 +90,6 @@
             echo "<script>console.log('mCrearTienda::actualizarInformacionTienda')</script>";
             $connect -> close();
         }
-
         /**
          * Actualizar la fecha fin de la publicación de la tienda en la base de datos
          * @param   entero  ID de usuario
@@ -117,6 +110,36 @@
             echo "<script>console.log('mTiendasCrear.php::actualizarFechaFinPublicacion')</script>";
             $connect -> close();
         }
+//-------- COMPROBAR REPETIDO NOMBRE_TIENDA --------------------------------------------------------
+        /**
+         * Comprobar que el nombre de la tienda no se encuentre registrado por otro o él mismo usuario
+         * @param   texto   Nombre de la tienda
+         * @return  entero  0 = Nombre no repetido
+         *                  1 = Nombre repetido
+         */
+        static function comprobarNombreTiendaRepetido($NOMBRE_TIENDA){
+            $connect = conexionBaseDatos();
+            $nombre_tiendas = 0;
+            
+            $sql = "SELECT NOMBRE_TIENDA FROM TIENDAS 
+                    WHERE NOMBRE_TIENDA = '$NOMBRE_TIENDA'";
+            $result = $connect->query($sql);
+            while ($fila = mysqli_fetch_assoc($result)){
+                $nombre_tiendas = $fila ['NOMBRE_TIENDA'];
+            }
+            if ($nombre_tiendas!=0){
+                $repetido = 1;
+            }else{
+                $repetido = 0;
+            }
+
+            $tipoMensaje = "log";
+            if($repetido == 1){
+                $tipoMensaje = "error";
+            }
+            echo "<script>console.$tipoMensaje('mTiendaCrear::comprobarNombreTiendaRepetido-> $repetido')</script>";
+            $connect->close();
+            return $repetido;
+        }
 //------------------------------------------------------------------------------------------------
     }
-    

@@ -14,19 +14,14 @@
         static function enviarMensaje($ID_TIENDA,$ID_REMITENTE,$MENSAJE){
             $connect = conexionBaseDatos();
 
-            $sql  = "INSERT INTO CHAT_TIENDA (ID_TIENDA, ";
-            $sql .= "ID_REMITENTE, ";
-            $sql .= "MENSAJE)";
-            $sql .= "VALUES ('$ID_TIENDA', ";
-            $sql .= "'$ID_REMITENTE', ";
-            $sql .= "'$MENSAJE')";
+            $sql  = "INSERT INTO CHAT_TIENDA (ID_TIENDA, ID_REMITENTE, MENSAJE)";
+            $sql .= "VALUES ('$ID_TIENDA', '$ID_REMITENTE', '$MENSAJE')";
 
             $result = $connect -> query($sql);
             comprobarDatosAfectados($connect);
             echo "<script>console.log('mTiendasChat::enviarMensaje')</script>";
             $connect -> close();
         }
-
         /**
          * Responde la tienda el mensaje realizado por un usuario
          * @param   entero  ID usuario
@@ -44,7 +39,6 @@
             echo "<script>console.log('mTiendasChat::enviarMensajeTienda')</script>";
             $connect -> close();            
         }
-        
         /**
          * Indicar y mostrar los mensajes recibidos y enviados a una tienda especifica
          * @param   entero  ID de la tienda
@@ -56,87 +50,33 @@
          *                          [][2] = MENSAJE_RESPUESTA
          *                          [][3] = FECHA_MENSAJE
          */
-        static function pedirChat($ID_TIENDA, $ID_REMITENTE){
-            $connect = conexionBaseDatos();
-
-            $sql  = "SELECT * ";
-            $sql .= "FROM CHAT_TIENDA ";
-            $sql .= "WHERE ID_TIENDA = '$ID_TIENDA' ";
-            $sql .= "AND ID_REMITENTE = '$ID_REMITENTE'";
-            $result = $connect -> query($sql);
-
-            $descripcionVariable = array('ID_REMITENTE', 'MENSAJE','MENSAJE_RESPUESTA', 'FECHA_MENSAJE');  //Diccionario de variables a conseguir
-            $elementos = (count($descripcionVariable));
-            //Almacen de variables en la lista info_tienda
-            $filas_guardadas = 0;
-            while ($fila = mysqli_fetch_assoc($result)){//realizar la busqueda
-                $posision_columna = 0;
-                while ($posision_columna < $elementos){//ingresar cada uno de los valores de la tienda en una lista
-                    $chat_tienda[$filas_guardadas][$posision_columna] = $fila [$descripcionVariable[$posision_columna]];
-                    $posision_columna++;
-                }
-                $filas_guardadas++;
-            }
-            //Salida por consola
-            $filas_impresas = 0;
-            while ($filas_impresas<$filas_guardadas){
-                echo "<script>console.log('--------------------------------------------')</script>";
-
-                $posision_columna = 0;
-                while ( $posision_columna < $elementos ){
-                    echo "<script>console.log(' $descripcionVariable[$posision_columna]: " . 
-                                                $chat_tienda[$filas_impresas][$posision_columna] . " ')</script>";
-                    $posision_columna++;
-                } 
-                $filas_impresas++;
-            }
-            $connect -> close();
-            echo "<script>console.log('mTiendasChat::pedirChat')</script>";
-            return $chat_tienda;
-        }
-
-        /**
-         * Obtiene los mensajes recibidos por todos los usuarios junto a la ID del usuario que lo envia
-         * @param   entero  ID de la tienda
-         * @return  lista   Lista de los mensajes recibidos junto a los ID de quienes lo envian
-         */
-        static function mensajesRecibidos($ID_TIENDA){
+        static function pedirChat($ID_TIENDA, $ID_REMITENTE=null){
             $connect = conexionBaseDatos();
 
             $sql  = "SELECT * ";
             $sql .= "FROM CHAT_TIENDA ";
             $sql .= "WHERE ID_TIENDA = '$ID_TIENDA'";
+            if($ID_REMITENTE != null) $sql .= " AND ID_REMITENTE = '$ID_REMITENTE'";
             $result = $connect -> query($sql);
 
-            $descripcionVariable = array('ID_REMITENTE', 'MENSAJE');  //Diccionario de variables a conseguir
+            $descripcionVariable = array('ID_REMITENTE','MENSAJE','MENSAJE_RESPUESTA','FECHA_MENSAJE');  //Diccionario de variables a conseguir
             $elementos = (count($descripcionVariable));
             //Almacen de variables en la lista info_tienda
-            $filas_guardadas = 0;
-            while ($fila = mysqli_fetch_assoc($result)){//realizar la busqueda
-                $posision_columna = 0;
-                while ($posision_columna < $elementos){//ingresar cada uno de los valores de la tienda en una lista
-                    $chat_tienda[$filas_guardadas][$posision_columna] = $fila [$descripcionVariable[$posision_columna]];
-                    $posision_columna++;
+
+            for($i=0; $i<$fila = mysqli_fetch_assoc($result); $i++){        // $i = Filas
+                for($j=0; $j<$elementos; $j++){     // $j = Columnas
+                    $chat_tienda[$i][$j] = $fila [$descripcionVariable[$j]];
                 }
-                $filas_guardadas++;
             }
             //Salida por consola
-            $filas_impresas = 0;
-            while ($filas_impresas<$filas_guardadas){
+            for($a=0; $a<$i; $a++){
                 echo "<script>console.log('--------------------------------------------')</script>";
-
-                $posision_columna = 0;
-                while ( $posision_columna < $elementos ){
-                    echo "<script>console.log(' $descripcionVariable[$posision_columna]: " . 
-                                                $chat_tienda[$filas_impresas][$posision_columna] . " ')</script>";
-                    $posision_columna++;
-                } 
-                $filas_impresas++;
+                for($b=0; $b<$elementos; $b++){
+                    echo "<script>console.log(' ~ $descripcionVariable[$b]: ".$chat_tienda[$a][$b]."')</script>";
+                }
             }
             $connect -> close();
-            echo "<script>console.log('mTiendasChat::mensajesRecibidos')</script>";
+            echo "<script>console.log('mTiendasChat::pedirChat')</script>";
             return $chat_tienda;
         }
     }
-    
-

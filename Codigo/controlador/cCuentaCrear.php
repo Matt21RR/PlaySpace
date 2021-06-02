@@ -26,19 +26,16 @@
                 if($almacenarDatos[$i] == $contrasenaIngresada){
                     $contrasena = self::validarDatosCuenta($almacenarDatos[$i], $i);    //Obtener la contraseña encriptada
                     if($contrasena == -1){
-                        $crearCuenta = -1;
+                        $crearCuenta = -1;          //Valores no validos se les niega el intento de subida a la BD
                         break;
                     }
                 } else if(self::validarDatosCuenta($almacenarDatos[$i], $i) == -1){
-                    $crearCuenta = -1;
+                    $crearCuenta = -1;              //Valores no validos se les niega el intento de subida a la BD
                     break;
                 }
             }
-
-            if($crearCuenta == 1){
+            if($crearCuenta == 1){              //Subida de información básica a la BD
                 self::enviarInfoCuenta ($nickIngresado, $fotoPerfilIngresada, $contrasena, $correoIngresado);
-            } else{
-                echo "<script>console.error('Cuenta no creada')</script>";
             }
             echo "<script>console.log('cCuentaCrear::crearCuenta')</script>";
         }
@@ -56,23 +53,23 @@
          *          texto   ¿? = Contraseña encriptada
          */
         static function validarDatosCuenta($datoIngresado, $datoSeleccionar){
-            $crearCuenta = -1;
-            if($datoSeleccionar == 0){
-                if(self::crearNick($datoIngresado) == 1){
-                    $crearCuenta = 1;
+            $crearCuenta = -1;                          // BLOQUEO --- No crear cuenta
+            if($datoSeleccionar == 0){                          // 0 = Comprobar Nick(Nombre Usuario)
+                if(self::crearNick($datoIngresado) == 1){       
+                    $crearCuenta = 1;                   // LLAVE --- Crear cuenta
                 }
-            } else if($datoSeleccionar == 1){
+            } else if($datoSeleccionar == 1){                   // 1 = Comprobar Contraseña 
                 $contrasena = self::crearContrasena($datoIngresado);      //Contraseña encriptada
                 if( $contrasena != -1){
-                    $crearCuenta = 1;
+                    $crearCuenta = 1;                   // LLAVE --- Crear cuenta
                 }
-            } else if($datoSeleccionar == 2){
+            } else if($datoSeleccionar == 2){                   // 2 = Comprobar Correo
                 if(self::crearCorreo($datoIngresado) == 1){
-                    $crearCuenta = 1;
+                    $crearCuenta = 1;                   // LLAVE --- Crear cuenta
                 }
-            } else if($datoSeleccionar == 3){
+            } else if($datoSeleccionar == 3){                   // 3 = Comprobar ID Foto Perfil
                 if(self::seleccionarFotoPerfil($datoIngresado) == 1){
-                    $crearCuenta = 1;
+                    $crearCuenta = 1;                   // LLAVE --- Crear cuenta
                 }
             }
 
@@ -149,5 +146,3 @@
         }
 //----------------------------------------------------------------------------------------
     }
-
-    ccuentaCrear::crearCuenta("Y12weIAGO", "ESP3NC3R24", "jsmarroko313@outlook.com", 0);

@@ -78,6 +78,9 @@
             } else if( $datoSeleccionar > -1 && $datoSeleccionar < 4){
                 if(cValidacion::validarTexto($datoIngresado) == 1){
                     $condicion = 1;
+                    if($datoSeleccionar == 0){
+                        if(self::comprobarNombreTiendaRepetido($datoIngresado) == 1) $condicion = -1;
+                    }
                 }
             } else if($datoSeleccionar == 4){
                 $datoIngresado = str_replace("(", "", $datoIngresado);

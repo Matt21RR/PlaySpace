@@ -44,6 +44,8 @@
          * la clave de verificación ingresada por el usuario
          * @param   entero  ID de usuario
          * @param   texto   clave de verificación por ingresada por del usuario
+         * @return  entero   1 = Clave de verificación valida
+         *                  -1 = Clave de verificación invalida
          */
         static function verificarClaveVerificacion($ID_USUARIO, $CLAVE_INGRESADA){
             $CLAVE_VERIFICACION = self::pedirClaveVerificacion($ID_USUARIO);
@@ -51,9 +53,12 @@
             echo "<script>console.log('cAutenticacion::verificarClaveVerificacion')</script>";
             if($CLAVE_VERIFICACION != $CLAVE_INGRESADA){        //Comparación clave ingresada con la generada
                 echo "<script>console.error('Clave invalida')</script>";
+                $validacion = -1;
             } else{
                 echo "<script>console.warn('Clave correcta')</script>";
+                $validacion = 1;
             }
+            return $validacion;
         }
 // -----------------------------------------------------------------------------------------------    
     }

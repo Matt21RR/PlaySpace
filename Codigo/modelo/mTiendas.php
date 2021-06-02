@@ -4,7 +4,7 @@
 
     class mTiendas
     {
-// ------- |SELECT| ID_TIENDAS/INFO_TIENDA -------------------------------------------------------
+// ------- MOSTRAR ID_TIENDAS/INFO_TIENDA -------------------------------------------------------
         /**
          * Almacena y muestra el ID de las tiendas creadas por un usuario especifico
          * @param   entero  ID del usuario
@@ -43,7 +43,6 @@
             }
             return $info_IDTiendas;
         }
-
         /**
          * Almacena y muetra la información establecida
          * @param   entero  id del usuario para mostrar la información tienda activa
@@ -67,17 +66,16 @@
 
             $descripcionVariable = array('NOMBRE_TIENDA','TELEFONO','CORREO', 'FIN_PUBLICACION',
                                         'DESCRIPCION', 'DIRECCION');  //Diccionario de variables a conseguir
-            $elementos = (count($descripcionVariable));
             //Almacen de variables en la lista info_tienda
             $i = 0;
             while ($fila = mysqli_fetch_assoc($result)){//realizar la busqueda
 
-                while ($i < $elementos){//ingresar cada uno de los valores de la tienda en una lista
+                while ($i < count($descripcionVariable)){//ingresar cada uno de los valores de la tienda en una lista
                     $info_tienda[$i] = $fila [$descripcionVariable[$i]];
+                    echo $info_tienda[$i]."<br>";
                     $i++;
                 }
             }
-
             echo "<script>console.log('mTiendas::pedirInformacionTiendas')</script>";
 
             $connect -> close();
@@ -85,5 +83,3 @@
         }
 //------------------------------------------------------------------------------------------------
     }
-
-    
