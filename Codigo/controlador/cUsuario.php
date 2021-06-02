@@ -75,7 +75,6 @@
             echo "<script>console.log('cUsuario::pedirVariables')</script>";
             return $variableIngresada;
         }
-
         /**
          * Se evaluan los datos ingresados por el usuario para ver si cumplen con los parametros establecidos
          *          decidir - si cumple con el min y max del dato establecido 
@@ -85,8 +84,8 @@
          *                         3 = contraseña
          * @param   texto   datos del usuario a comprobar
          * @param   entero  tipo de variable para validarTexto
-         * @return  entero  variable que se enviara cuyo dato ingresado no sea válido
-         *          texto   retorna la variable verificada 
+         * @return  entero   1 = Variable Válida
+         *                  -1 = Variable inválida
          *          
          */
         static function pedirDatos($datoIngresar, $datoEvaluar){
@@ -113,7 +112,6 @@
             }
             return $validacion;
         }
-
         /**
          * Se determina el ID_FOTO_PERFIL tomando encuenta la selección del usuario
          * @param   entero  ID foto de perfil determinada

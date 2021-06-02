@@ -11,30 +11,22 @@
          * @return  arreglo Arreglo con las coordenadas.
          */
 
-        static function generarUbicacionSeleccion($nomArch = "",$limiteDistancia = 1000){
+        static function generarUbicacionSeleccion($nomArch,$limiteDistancia = 1000){
             
             $unselectedCoords = 1; //Coordenadas no seleccionadas
             $voidCoords = 1; //Coordenadas vacias
             $coordsOutOfRange = 1; //Coordenadas fuera de rango
-            //inicio sesion
-            if(!isset($_SESSION))session_start();
-            if($nomArch!=""){
-                $_SESSION[ 'nomArch' ] = $nomArch;
-            }
-
+            
             if ((array_key_exists('latCustom', $_GET)) && (array_key_exists('lonCustom', $_GET))){
                 $unselectedCoords = 0;
                 if(($_GET[ 'latCustom' ] != "") && ($_GET[ 'lonCustom' ] != "")){
                     $voidCoords = 0;
                     //OBTENER LOS VALORES
-                    $_SESSION[ 'coordsAct0' ] = $_GET[ 'latitud' ];
-                    $_SESSION[ 'coordsAct1' ] = $_GET[ 'longitud' ];
-                    $_SESSION[ 'coords0' ] = $_GET[ 'latCustom' ];
-                    $_SESSION[ 'coords1' ] = $_GET[ 'lonCustom' ];
-                    if (cUbicacion::haversineGreatCircleDistance(   $_SESSION[ 'coordsAct0' ],
-                                                                    $_SESSION[ 'coordsAct1' ],
-                                                                    $_SESSION[ 'coords0' ],
-                                                                    $_SESSION[ 'coords1' ]) < $limiteDistancia){
+                    $coordsAct[0] = $_GET[ 'latitud' ];
+                    $coordsAct[1] = $_GET[ 'longitud' ];
+                    $coords[0] = $_GET[ 'latCustom' ];
+                    $coords[1] = $_GET[ 'lonCustom' ];
+                    if (cUbicacion::haversineGreatCircleDistance($coordsAct[0],$coordsAct[1],$coords[0],$coords[1]) < $limiteDistancia){
                         $coordsOutOfRange = 0;
                         echo "<p>";
                         echo "<script>console.warn('Distancia entre puntos menor a ".$limiteDistancia."Mts')</script>";
@@ -46,17 +38,9 @@
                     }
                 }
             }
-            if(array_key_exists('confirmar', $_GET)){
-                if(($_GET[ 'confirmar' ]) == '1'){
-                    $_SESSION['latitud'] = $_SESSION['coords0'];
-                    $_SESSION['longitud'] = $_SESSION['coords1'];
-                    return header("location: ".$_SESSION[ 'nomArch' ]."?info=0");
-                }else{
-                    include_once ("vUbicacion.php");
-                }
-            }
             if (($unselectedCoords == 1) || ($voidCoords == 1) || ($coordsOutOfRange == 1)){
             //LLAMAR AL MAPA
+            
                 include_once ("vUbicacion.php");
             }
         }
@@ -84,14 +68,11 @@
             $angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) + cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
             return $angle * $radioTierra;
         }
-    }if (((array_key_exists('latCustom', $_GET)) && (array_key_exists('lonCustom', $_GET))) || array_key_exists('confirmar', $_GET)){//para que no se ejecute apenas se realize el include
-        if(!isset($_SESSION))session_start();
-        if(array_key_exists('nomArch', $_SESSION)){
-            cUbicacion::generarUbicacionSeleccion();
-        }
-        echo "yeah!!";
     }
+
     
+    cUbicacion::generarUbicacionSeleccion("cUbicacion.php");
+
     
 
     

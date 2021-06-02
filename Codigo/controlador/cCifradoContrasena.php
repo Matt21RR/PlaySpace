@@ -154,19 +154,8 @@
          * @return  texto   la semilla de la contraseña
          */
         static function extraerSemilla ($contrasenaHasheadaSemilla){
-            $resultado = incrustarSemilla($contrasenaHasheadaSemilla);
+            $resultado = self::incrustarSemilla($contrasenaHasheadaSemilla);
             echo "<script>console.log('cCifradoContrasena::extraerContrasena-> ".$resultado."')</script>";
             return $resultado;
         }
     }
-    
-    //echo "<p>";
-    //generarSemilla();
-    //echo "<p>";
-    //echo hashearContrasena("gamerdefnaf3",generarSemilla());
-    //echo "<p>";
-    //echo incrustarSemilla(hashearContrasena("elbiernez",561258),561258);
-    //echo extraerSemilla(incrustarSemilla(hashearContrasena("gamerdefnaf3",167258),167258));
-
-
-    

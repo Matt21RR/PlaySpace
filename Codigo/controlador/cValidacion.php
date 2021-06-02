@@ -62,6 +62,9 @@
                     $textoValido = 5;
                 }
             }
+            $tipoMen="warn";
+            if($textoValido != 1){$tipoMen="error";}
+            echo "<script>console.".$tipoMen."('cValidacion::validarTexto-> ".$textoValido."')</script>";//SALIDA POR CONSOLA
             return $textoValido;
         }
         /**
@@ -117,6 +120,37 @@
                     }
                 }
             }
+            //*Inicio seccion logica de cumplimiento de requerimientos del correo=========================
+
+            //* Seccion de impresion DE TABLA(solo para debug)====================================================
+            echo "<script>console.log('cValidacion::validarCorreo-> ')</script>";
+            $columna = 0;
+            while ($columna != count($listaPosicionCoincidencia)){
+                $fila = 0;
+                $cantidadResultados = count($listaPosicionCoincidencia[$columna]);//cantidad de resultados obtenidos para cada caracter de la lista
+                $impResultado = "       | ".$caracteresValidosCorreo[$columna]." | ";
+                while ($fila != $cantidadResultados){
+                    
+                    $impResultado .= ($listaPosicionCoincidencia[$columna][$fila])." | ";//se obtienen las posiciones en las cuales se encontraron los caracteres
+                    $fila++;
+                }
+                echo "<script>console.log('".$impResultado."')</script>";
+                $columna++;
+            }
+            // * Seccion impresion incumplimiento de requisito================================================
+            switch($incumplimiento){
+                case 2:
+                    echo "<script>console.warn('Caracter no permitido al principio o al final del correo presente')</script>";
+                    break;
+                case 3:
+                    echo "<script>console.warn('Caracter presente mas de una vez en el correo')</script>";
+                    break;
+                case 4:
+                    echo "<script>console.warn('Caracter junto a otro caracter del mismo tipo que no pueden estar pegados encontrados')</script>";
+                    break;
+            }
+            //* Fin seccion impresion======================================================================
+
             //* Seccion de eliminacion de caracteres permitidos================================================
             $listaLinealPosicionCoincidencia = array_merge ($listaPosicionCoincidencia[0],
                                                             $listaPosicionCoincidencia[1],
@@ -183,6 +217,7 @@
                 }
                 $posX++;
             }
+            echo "<script>console.log('cValidacion::busquedaGeneralPalabrasNoPermitidas->$palabraEncontrada')</script>";
             return $palabraEncontrada;
         }
         /**
@@ -209,6 +244,7 @@
             } else {
                 $posEnTextoLetraEncontrada = -1;
             }
+            echo "<script>console.log('cValidacion::buscarLetraEnTexto-> $posEnTextoLetraEncontrada')</script>";
             return $posEnTextoLetraEncontrada;
         }
         /**
@@ -237,6 +273,7 @@
                     $PosicionValidaEscaneada++;
                 }
             }
+            echo "<script>console.log('cValidacion::buscarCaracteresAOmitir-> $PosicionValidaEscaneada')</script>";
             return $PosicionValidaEscaneada;
         }
         /**
@@ -331,7 +368,7 @@
                     $resultado = self::buscarLetraPalabra($p, $letraDelTexto);
                     break;
                 case 'q':
-                    $resultado = self::buscarLetraPalabra($q, $letraDelTexto);
+                    $resultado = self::buscarLetraPalabra($aq, $letraDelTexto);
                     break;
                 case 'r':
                     $resultado = self::buscarLetraPalabra($r, $letraDelTexto);
@@ -361,6 +398,7 @@
                     $resultado = self::buscarLetraPalabra($z, $letraDelTexto);
                     break;
             }
+            echo "<script>console.log('cValidacion::directorioInteligente-> $resultado')</script>";
             return $resultado;
         }
         /**
@@ -383,6 +421,7 @@
                 }
                 $posX++;
             }
+            echo "<script>console.log('cValidacion::buscarLetraPalabra--> $caracterEncontrado')</script>";
             return $caracterEncontrado;
         }
     }//457

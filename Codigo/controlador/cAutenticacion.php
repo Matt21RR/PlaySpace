@@ -31,7 +31,7 @@
                                             'G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V',
                                             'W','X','Y','Z' );  
             $claveVerificacion = "";
-            for ($contador == 1; $contador < 9; $contador++){
+            for ($contador == 1; $contador < 8; $contador++){
                 $posicion = rand(0, 36);    //Toma un valor aleatoreo de $diccionarioCaracteres
                 $claveVerificacion .= $diccionarioCaracteres[$posicion];
             }

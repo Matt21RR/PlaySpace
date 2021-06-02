@@ -2,6 +2,7 @@
     include_once('../modelo/mCuentaCrear.php');         //Herencia
     include_once('cUsuario.php');
     include_once('cCifradoContrasena.php');
+    include_once('../modelo/mInicioSesion.php');       //Temporal Obtener ID_USUARIO
 
     class cCuentaCrear extends mCuentaCrear
     {
@@ -17,6 +18,8 @@
          * @param   texto   contraseña ingresada por el usuario
          * @param   texto   correo ingresado por el usuario
          * @param   entero  selección de la foto de perfil por el usuario
+         * @return  entero   ID del usuario creado
+         *                  -1 = Cuenta no creada
          */
         static function crearCuenta($nickIngresado, $contrasenaIngresada, $correoIngresado, $fotoPerfilIngresada){
             $crearCuenta = 1;
@@ -36,8 +39,10 @@
             }
             if($crearCuenta == 1){              //Subida de información básica a la BD
                 self::enviarInfoCuenta ($nickIngresado, $fotoPerfilIngresada, $contrasena, $correoIngresado);
+                $crearCuenta = mInicioSesion::comprobarDatosInicioSesion($nickIngresado,$contrasena);        //Almacena el ID del usuario
             }
             echo "<script>console.log('cCuentaCrear::crearCuenta')</script>";
+            return $crearCuenta;
         }
 // ------- VALIDAR DATOS -----------------------------------------------------------------
         /**

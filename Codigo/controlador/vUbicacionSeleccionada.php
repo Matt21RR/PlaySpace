@@ -26,14 +26,16 @@
 		function mapa(pos)
 		{
 		/************************ Aqui están las variables que te interesan***********************************/
-            <?php if(!isset($_SESSION))session_start(); ?>
-			var latitudUser = '<?php echo $_SESSION[ 'coordsAct0' ]; ?>'
-			var longitudUser = '<?php echo $_SESSION[ 'coordsAct1' ]; ?>'
+			var latitudUser = '<?php echo $coordsAct[0]; ?>'
+			var longitudUser = '<?php echo $coordsAct[1]; ?>'
 			var ubiUsuario = new google.maps.LatLng(latitudUser,longitudUser);
 
-            var latitudObjetivo = '<?php echo $_SESSION[ 'coords0' ]; ?>'
-			var longitudObjetivo = '<?php echo $_SESSION[ 'coords1' ]; ?>'
+            var latitudObjetivo = '<?php echo $coords[0]; ?>'
+			var longitudObjetivo = '<?php echo $coords[1]; ?>'
             var ubiObjetivo = new google.maps.LatLng(latitudObjetivo,longitudObjetivo);
+            document.getElementById("latCustom").value = '<?php echo $coords[0]; ?>'
+            document.getElementById("lonCustom").value = '<?php echo $coordsAct[1]; ?>'
+ 
             var contenedor = document.getElementById("map")
 
 			var propiedades =
@@ -71,7 +73,11 @@
         </head>
         <body onLoad="localize()">
 			<div id="map" ></div> 
-            <a href="cUbicacion.php?confirmar=0">Seleccionar una nueva Ubicacion</a>
-            <a href="cUbicacion.php?confirmar=1">Confirmar ubicacion y continuar</a>
+            <a href="<?php $nomArch ?>">Seleccionar una nueva Ubicacion</a>
+            <form action = "cEventoCrear.php" method="$_GET">
+                <input type="hidden" id="latCustom" name="latCustom">
+                <input type="hidden" id="lonCustom" name="lonCustom">
+                <input type="submit" value="Confirmar ubicacion y continuar">
+            </form>
         </body>
         </html>
