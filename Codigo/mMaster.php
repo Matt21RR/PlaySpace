@@ -1,6 +1,6 @@
 <?php
     /**
-     * Comprueba e informa por CONSOLA si sehan realizado cambios en la
+     * Comprueba e informa por CONSOLA si se han realizado cambios en la
      * base de datos cuando se intenta modificar o agregar informacion
      * en la misma.
      * @param   objeto  el objeto que se empleo para hacer la conexion
