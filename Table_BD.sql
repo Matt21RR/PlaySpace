@@ -49,6 +49,7 @@ CREATE TABLE EVENTOS(
 	ID_USUARIO INT NOT NULL,
 	ID_EVENTO INT NOT NULL, 
     TAMANO_EVENTO INT,
+    CANTIDAD_PARTICIPANTES INT NOT NULL,
     TIPO_EVENTO INT NOT NULL, 
     DESCRIPCION TEXT,
     UBICACION_LAT FLOAT NOT NULL,
@@ -58,6 +59,7 @@ CREATE TABLE EVENTOS(
     CALIFICACION_EVENTO DOUBLE DEFAULT 5.0,
     CANTIDAD_CALIFICACIONES INT DEFAULT 0,
     EVENTO_FALSO INT DEFAULT 0,
+    CHAT INT,
     FOREIGN KEY (ID_USUARIO) REFERENCES USUARIOS(ID_USUARIO) ON DELETE CASCADE ON UPDATE CASCADE, 
     PRIMARY KEY (ID_EVENTO));
 /*REPORTANTES_EVENTOS*/
@@ -247,6 +249,17 @@ INSERT INTO EVENTOS (ID_USUARIO,
                     FECHA_FIN) VALUES (2,21,56,14.68645464,3.9806785,current_timestamp(),current_timestamp());
 INSERT INTO EVENTOS (ID_USUARIO,
 					ID_EVENTO,
+                    TAMANO_EVENTO,
+                    CANTIDAD_PARTICIPANTES,
+                    TIPO_EVENTO,
+                    DESCRIPCION,
+                    UBICACION_LAT,
+                    UBICACION_LON,
+                    FECHA_INICIO,
+                    FECHA_FIN,
+                    CHAT) VALUES (4,41,1,6,5,"vb",2.572685535034676,-72.6479,'2021-07-02 07:47','2021-06-02 10:47',0);
+INSERT INTO EVENTOS (ID_USUARIO,
+					ID_EVENTO,
                     TIPO_EVENTO,
                     UBICACION_LAT,
                     UBICACION_LON,
@@ -408,3 +421,4 @@ INSERT INTO PAPELERA_DE_RECICLAJE (MENSAJE) VALUES ('Cuenta Borrada');
 
 #=====================================================
 #=====================================================
+
