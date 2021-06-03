@@ -34,7 +34,6 @@
             $connect -> close();
             return $ID_USUARIO;
         }
-
         /**
          * Actualizar contraseña de la cuenta
          * @param   entero  ID del usuario

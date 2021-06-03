@@ -13,7 +13,8 @@
             $connect = conexionBaseDatos();
 
             $sql  = "UPDATE USUARIOS ";
-            $sql .= "SET CLAVE_VERIFICACION = '$CLAVE_VERIFICACION', FECHA_CLAVE_VERIFICACION = NOW() ";        //Toma la fecha actual
+            $sql .= "SET CLAVE_VERIFICACION = '$CLAVE_VERIFICACION', 
+                     FECHA_CLAVE_VERIFICACION = DATE_ADD(NOW(), INTERVAL 10 MINUTE)";        //Ingresa la fecha límite
             $sql .= "WHERE ID_USUARIO = '$ID_USUARIO'";
 
             $result = $connect -> query($sql);
