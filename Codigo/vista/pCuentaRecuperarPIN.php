@@ -5,8 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RecuperarCuenta (PIN)</title>
-<!----- COMPROBACIÓN SESSION["ID_USUARIO"] -->
-    <?php include_once('comprobarSesiones.php') ?>
+    <?php 
+        include_once('comprobarSesiones.php');
+        include_once('comprobarTiempo.php');
+//----- COMPROBACIÓN SESSION["ID_USUARIO"] -->
+        comprobarSesiones();
+//----- CONTEO DE TIEMPO PARA BORRAR LA CLAVE DE VALIDACIÓN (PIN) -->
+        comprobarTiempo();
+    ?>
 </head>
 <body>
 <!------ TITULO(IMG) ------------------------------>
@@ -22,7 +28,5 @@
         <input type="submit" name="enviarOtroPIN" value="Enviar otro código"><br>           <!------ ENVIAR OTRO PIN -->
         <input type="submit" name="Continuar" value="Continuar">           <!------ VALIDAR PIN -->
     </form>
-<!------ ENLACES --------------------------------->
-    <a href="cvCuentaCrear.php">Crear una cuenta</a>            <!----- Link (Crear Cuenta) -->
 </body>
 </html>

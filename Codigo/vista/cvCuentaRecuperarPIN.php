@@ -11,11 +11,13 @@
 //----- ENVIAR OTRO PIN
     if(isset($_POST["enviarOtroPIN"])){
         cAutenticacion::crearClaveVerificacion($_SESSION["ID_USUARIO"]);
-        header('Location: pCUentaRecuperarPIN.php');
+        header('Location: pCuentaRecuperarPIN.php');
 //----- COMPROBAR PIN
     } else{
-        if($PIN == "") header('Location: pCuentaRecuperarPIN.php');
-        if(cAutenticacion::verificarClaveVerificacion($_SESSION["ID_USUARIO"], $PIN)==1){
+        if($PIN == ""){
+            header('Location: pCuentaRecuperarPIN.php');
+        } else if(cAutenticacion::verificarClaveVerificacion($_SESSION["ID_USUARIO"], $PIN)==1){
+            cAutenticacion::borrarClaveVerificacion($_SESSION["ID_USUARIO"]);
             header('Location: pCuentaRecuperarNewPass.php');       //----- PIN VALIDO - Proceder renovación de contraseña
         } else{
             header('Location: pCuentaRecuperarPIN.php');         //----- PIN INVALIDO - Recargar pantalla para validar PIN

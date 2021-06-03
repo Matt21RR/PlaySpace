@@ -5,8 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RecuperarCuenta (RenovarContraseña)</title>
-<!----- COMPROBACIÓN SESSION["ID_USUARIO"] -->
-    <?php include_once('comprobarSesiones.php') ?>
+    <?php 
+        include_once('comprobarSesiones.php');
+//----- COMPROBACIÓN SESSION["ID_USUARIO"] -->
+        comprobarSesiones();
+    ?>
 </head>
 <body>
 <!------ TITULO(IMG) ------------------------------>
