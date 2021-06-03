@@ -19,7 +19,6 @@
                 $FIN_PUBLICACION = cTiendaCrear::ofrecerEspacioPublicitario($ID_USUARIO, $tiempoCompra);
                 self::actualizarFechaFinPublicacion($ID_USUARIO, $ID_TIENDA, $FIN_PUBLICACION);
         }
-
         /**
          * Actualizar datos basicos seleccionados de la tienda
          * @param   entero  ID de la cuenta con tienda

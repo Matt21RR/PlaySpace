@@ -13,7 +13,6 @@
             $info_IDTiendas = self::pedirIDTiendasCreador($ID_USUARIO);
             return $info_IDTiendas;
         }
-    
         /**
          * Obtiene la información básica de una tienda en especifico
          * @param   entero  id del usuario para mostrar la información tienda activa

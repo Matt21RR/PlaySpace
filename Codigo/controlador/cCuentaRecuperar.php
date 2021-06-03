@@ -2,6 +2,7 @@
     include_once('../modelo/mCuentaRecuperar.php');
     include_once('cValidacion.php');            //Temporal
     include_once('cAutenticacion.php');         //Temporal
+    include_once('cCuentaCrear.php');           //Temporal
 
     class cCuentaRecuperar{
         /**
@@ -24,10 +25,11 @@
          * @return  entero  -1 = Contraseña no válida
          */
         static function introducirContraseñaNueva($ID_USUARIO, $CONTRASENA){
-            if (cValidacion::validarTexto($CONTRASENA,3)==1){
-                mCuentaRecuperar::actualizarDatosCuenta($ID_USUARIO, $CONTRASENA);
-            } else{
+            $CONTRASENA = cCuentaCrear::validarDatosCuenta($CONTRASENA, 1);     //Validación y encriptación de la contraseña
+            if ($CONTRASENA==-1){
                 return -1;
+            }else {
+                mCuentaRecuperar::actualizarDatosCuenta($ID_USUARIO, $CONTRASENA);
             }
             echo "<script>console.log('cCuentaRecuperar::introducirContraseñaNueva')</script>";
         }

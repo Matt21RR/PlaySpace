@@ -1,6 +1,7 @@
 <?php
     include_once('cUsuario.php');           //temporal
     include_once('../modelo/mAutenticacion.php');   //Herencia
+    include_once('../modelo/mPerfil.php');       //Temporal
 
     class cAutenticacion extends mAutenticacion 
     {
@@ -31,8 +32,8 @@
                                             'G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V',
                                             'W','X','Y','Z' );  
             $claveVerificacion = "";
-            for ($contador == 1; $contador < 8; $contador++){
-                $posicion = rand(0, 36);    //Toma un valor aleatoreo de $diccionarioCaracteres
+            for($contador = 1; $contador <= 8; $contador++){
+                $posicion = rand(0, 35);    //Toma un valor aleatoreo de $diccionarioCaracteres
                 $claveVerificacion .= $diccionarioCaracteres[$posicion];
             }
 
@@ -59,6 +60,18 @@
                 $validacion = 1;
             }
             return $validacion;
+        }
+        /**
+         * Comprueba el tiempo de la clave de verificacion tomando encuenta que solo sera válida por 10min
+         * @param   entero  ID del usuario
+         * @param   tiempo  fecha actual
+         */
+        static function comprobarTiempoClaveVerificacion($ID_USUARIO){
+            $info_Usuario = mPerfil::pedirEstadisticas($ID_USUARIO);        //Obtención de información basica del usuario
+            $fechaPIN = $info_Usuario[7];          //[7] = FECHA_CLAVE_VERIFICACION
+            if($fechaPIN < tiempo()){        //Compara la fecha actual con la fecha limite
+                self::borrarClaveVerificacion($ID_USUARIO);
+            }
         }
 // -----------------------------------------------------------------------------------------------    
     }
