@@ -17,7 +17,12 @@
          * @param   numero  id del participante que es subministrada por el usuario
          */
         static function pedirListaPresentes($ID_EVENTO,$id_ingresado = -1){
-            $coincidencia = 0;
+            if(!isset($_SESSION))session_start();
+            if($id_ingresado != -1 && $id_ingresado != ""){//Si se ha ingresado algo
+                $_SESSION['coincidencia'] = 0;//Significa que no se encontro ninguna coincidencia
+            }else{
+                $_SESSION['coincidencia'] = -1; //Significa que no se ingreso nada para buscar
+            }
             //OBTENER LA ID DEL ASISTENTE
             $inscritos = self::pedirListaInasistentes($ID_EVENTO);
             
@@ -41,6 +46,8 @@
     if(array_key_exists('id_participante',$_GET)){
         if($_GET['id_participante'] != ""){
             cEventoInicio::pedirListaPresentes($ID_EVENTO,$_GET['id_participante']);
+        }else{
+            cEventoInicio::pedirListaPresentes($ID_EVENTO);
         }
     }else{
         cEventoInicio::pedirListaPresentes($ID_EVENTO);
