@@ -65,13 +65,18 @@
          * Comprueba el tiempo de la clave de verificacion tomando encuenta que solo sera válida por 10min
          * @param   entero  ID del usuario
          * @param   tiempo  fecha actual
+         * @return  entero   1 = Margen de tiempo limite no superado
+         *                  -1 = Margen de tiempo limite superado
          */
         static function comprobarTiempoClaveVerificacion($ID_USUARIO){
+            $tiempoLim = 1;
             $info_Usuario = mPerfil::pedirEstadisticas($ID_USUARIO);        //Obtención de información basica del usuario
             $fechaPIN = $info_Usuario[7];          //[7] = FECHA_CLAVE_VERIFICACION
-            if($fechaPIN < tiempo()){        //Compara la fecha actual con la fecha limite
+            if($fechaPIN < tiempo()){        //Compara la fecha limite con la fecha actual
                 self::borrarClaveVerificacion($ID_USUARIO);
+                $tiempoLim = -1;
             }
+            return $tiempoLim;
         }
 // -----------------------------------------------------------------------------------------------    
     }
