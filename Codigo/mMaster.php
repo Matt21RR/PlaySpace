@@ -27,9 +27,8 @@
          * @return  texto   Fecha actual en formato AAAA-MM-DD HH:MM:SS (Formato de 24 horas)
          */
         static function tiempo($zona_horaria = ''){
-            // ! echo "<script>var resolvedOptions = Intl.DateTimeFormat().resolvedOptions();
-            // !              console.log(resolvedOptions.timeZone);//Obtener el valor de la zona horaria
-            // !              document.getElementById("utc").value = (resolvedOptions.timeZone);</script>";
+            // ? La ruta del archivo de javascript depende de donde se encuentre el archivo de vista donde se requiera usar
+            // ! <script src="./js/timezone.js"></script>
             //TODO: Poner esto en la vista y enviar el resultado por medio del formulario de la pagina que
             //TODO: recibe la fecha como "hidden" con el nombre de "utc".
             // ! <input type="hidden" name="utc" id="utc">
