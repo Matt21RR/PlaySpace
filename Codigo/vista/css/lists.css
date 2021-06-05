@@ -13,7 +13,7 @@ body
 }
 .headerList{/*La cabeza de la pagina*/
     font-size:40px;
-    font-weight: 800;
+    font-weight: 1000;
     min-width:200px;
     border-bottom: 2px solid #42a5f5;
 }
@@ -22,7 +22,7 @@ body
     position: relative;
     background-color: black;
     background-attachment: scroll;
-    background-position: left center;
+    background-position: left 35%;
     background-repeat: no-repeat;
     background-size: 100% auto;
     width: 90%;
@@ -41,9 +41,11 @@ body
     bottom: 0px;
     
 }
-
+@media screen and (max-width:350px){
+    .element{height:110px;}
+}
 @media screen and (max-width: 300px) {
-    .header{font-size:25px;}
+    .headerList{font-size:25px;}
     body{font-size:11px;}
-    .element{height: 120px;}
+    .element{height: 90px;}
 }
