@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<?php 
+    include_once('encabezadoHTML.php');   //----- ENCABEZADO HTML
+    //----- COMPROBACIÓN SESSION["ID_USUARIO"] -->
+    comprobarSesiones();
+?> 
     <title>RecuperarCuenta (RenovarContraseña)</title>
-    <?php 
-        include_once('comprobarSesiones.php');
-//----- COMPROBACIÓN SESSION["ID_USUARIO"] -->
-        comprobarSesiones();
-    ?>
 </head>
 <body>
 <!------ TITULO(IMG) ------------------------------>
