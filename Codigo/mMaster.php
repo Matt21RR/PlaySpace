@@ -24,13 +24,19 @@
          * Desactivar si no es necesario
          * @param   texto   Zona horaria sobre la cual trabajara la funcion
          *                  Lista de zonas horarias: https://www.php.net/manual/es/timezones.php
+         * @return  texto   Fecha actual en formato AAAA-MM-DD HH:MM:SS (Formato de 24 horas)
          */
         static function tiempo($zona_horaria = ''){
             // ! echo "<script>var resolvedOptions = Intl.DateTimeFormat().resolvedOptions();
             // !              console.log(resolvedOptions.timeZone);//Obtener el valor de la zona horaria
-            // !              document.writeln('header()')</script>";
+            // !              document.getElementById("utc").value = (resolvedOptions.timeZone);</script>";
             //TODO: Poner esto en la vista y enviar el resultado por medio del formulario de la pagina que
-            //TODO: recibe la fecha como "hidden".
+            //TODO: recibe la fecha como "hidden" con el nombre de "utc".
+            // ! <input type="hidden" name="utc" id="utc">
+            //TODO: En el archivo al cual estes enviando la informacion de la vista,
+            //TODO: ejecutas esta funcion de la siguiente manera
+            // ! mMaster::tiempo($_GET['utc']);
+            //TODO: El $_GET es suponiendo que los parametros se han pasado usando el metodo $_GET;
                 if($zona_horaria == ''){
                     $zona_horaria = date_default_timezone_get();
                 }else{
@@ -62,4 +68,3 @@
             return $fechaObtenida;
         }
     }
-    
