@@ -26,14 +26,11 @@ input{
     max-width: 280px;
     min-width: 120px;
 }
-form{
-    margin: auto;
-    align-content: center;
-    text-align: center;
-    max-width: 300px;
-    min-width: 240px;
-    border-radius: 3px;
-    background-color: rgba(255, 255, 240, 0.8);
+input[type="submit"]{
+  background-color: unset;
+  border:unset;
+  font: inherit;
+  color:inherit;
 }
 hr{
     color:#64b5f6;
