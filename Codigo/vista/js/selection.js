@@ -61,10 +61,11 @@ function selectRadioImg(id,cantImg){
           document.getElementById("img"+i).style.border = "0px";
           if(i == id){
             document.getElementById("img"+i).style.border = "4px solid #2979ff";
-            document.querySelector("#Op"+i).checked = "True";
+            document.querySelector("#Op"+i).checked = 1;
           }
           else{
             document.getElementById("img"+i).style.border = "0px";
+	    document.querySelector("#Op"+i).checked = 0;
           }
           i++;
         }
