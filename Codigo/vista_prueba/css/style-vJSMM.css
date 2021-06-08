@@ -1,0 +1,56 @@
+body{  
+    background: linear-gradient(90deg, #282C6C, #21468A);
+}
+
+.container-form{
+    background: rgba(0, 0, 0, 0.35);
+    min-width: 300px;
+    width: 90%;
+    max-width: 400px;
+    height: 460px;
+    border-radius: 15px;
+    padding: 10px 35px 0;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.form-control{
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: white;
+    text-align: center;
+}
+
+.form-control:focus {
+    color: #212529;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: #fff;
+    box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
+  }
+
+.form-control::placeholder{
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+}
+
+.btn-IniciarSesion{
+    width: 80%;
+    max-width: 240px;
+    background: #0046c0;
+    border-color: #0046c0;
+    color: white;
+    border-radius: 8px;
+}
+
+.btn-IniciarSesion:hover{
+    color: white;
+}
+
+a{
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+a:hover{
+    color: white;
+}
