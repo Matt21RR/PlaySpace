@@ -55,7 +55,58 @@
                 echo "<script>console.log('---------------------------------------')</script>";
                 return $time;
         }
-
+        /**
+         * Transforma una fecha a el formato ej. (4 de Octubre - 5:18PM).
+         * @param   texto   Fecha en formato ('Y-m-d H:i').
+         * @return  texto   Fecha en formato nuevo.
+         */
+        static function tiempoTexto($date){
+            $arrayDate = (date_parse($date));
+            switch ($arrayDate['month']) {
+                case 1:
+                    $month = "Enero";
+                    break;
+                case 2:
+                    $month = "Febrero";
+                    break;
+                case 3:
+                    $month = "Marzo";
+                    break;
+                case 4:
+                    $month = "Abril";
+                    break;
+                case 5:
+                    $month = "Mayo";
+                    break;
+                case 6:
+                    $month = "Junio";
+                    break;
+                case 7:
+                    $month = "Julio";
+                    break;
+                case 8:
+                    $month = "Agosto";
+                    break;
+                case 9:
+                    $month = "Septiembre";
+                    break;
+                case 10:
+                    $month = "Octubre";
+                    break;
+                case 11:
+                    $month = "Noviembre";
+                    break;
+                case 12:
+                    $month = "Diciembre";
+                    break;
+            }
+            $dia = date_create($date)->format('d');
+            $ampm = date_create($date)->format('A');
+            $hora12 = date_create($date)->format('g');
+            $fechaNew = "".$dia." de ".$month." - ".$hora12.":".$arrayDate['minute']." ".$ampm."";
+            echo "<script>console.warn(' ".$fechaNew." ')</script>";
+            return $fechaNew;
+        }
         /**
          * Convertidor de fecha con año-mes-día hora:minuto:segundo a año-mes-día
          * @param   texto   fecha de entrada
