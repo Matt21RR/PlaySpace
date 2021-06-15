@@ -3,13 +3,13 @@
 //----- COMPROBACIÓN SESSION["ID_USUARIO"] -->
     comprobarSesiones();
 ?> 
-    <title>Mapa</title>
+    <title>CrearTiendaProductos</title>
 </head>
 <body>
-    <h1>MAPA</h1>
-<!----- IR A TIENDA -->
-    <form action="pTiendaCrear.php" method="post">
-        <input type="submit" value="CREAR TIENDA">
+<!----- IR A pCrearTiendaProductos -->
+    <h1>AGREGAR PRODUCTO</h1>
+    <form action="#.php">
+        <input type="submit" value="CREAR PRODUCTO">
     </form>
 </body>
 </html>

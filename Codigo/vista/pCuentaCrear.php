@@ -5,7 +5,7 @@
 </head>
 <body>
 <!------ FORMULARIO ------------------------------->
-    <form action="cvCuentaCrear.php" method="POST">             <!----- Enviado para confirmar con la BD -->
+    <form action="../controladorVista/cvCuentaCrear.php" method="POST">             <!----- Enviado para confirmar con la BD -->
     <!----- Seleccionar Perfil (Temporal) -->
         <select name="ID_FOTO_PERFIL">
             <?php

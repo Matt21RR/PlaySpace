@@ -13,12 +13,12 @@
         img_titulo();
     //------ PARRAFO GUIA ----------------------------->
         echo '
-            <div class="my-5">
-                Te enviamos un código para restablecer la contraseña de tu cuenta
+            <div class="guia-text">
+                <p>Te enviamos un código para restablecer la contraseña de tu cuenta</p>
             </div>
             ';
     //------ FORMULARIO ------------------------------->
-        echo ' <form action="cvCuentaRecuperarPIN.php" method="POST">';             //----- Enviado para confirmar con la BD -->
+        echo ' <form action="../controladorVista/cvCuentaRecuperarPIN.php" method="POST">';             //----- Enviado para confirmar con la BD -->
         //----- CLAVE DE VERIFICACIÓN (PIN) -->
             input_pin();
         //------ ENVIAR OTRO PIN -->

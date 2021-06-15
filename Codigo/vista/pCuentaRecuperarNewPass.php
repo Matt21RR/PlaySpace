@@ -5,16 +5,24 @@
 ?> 
     <title>RecuperarCuenta (RenovarContraseña)</title>
 </head>
-<body>
-<!------ TITULO(IMG) ------------------------------>
-    <img src="svg/title.png">
-<!------ PARRAFO GUIA ----------------------------->
-    <h3>Crea una contraseña nueva</h3>
-    <p>Ingresa una combinación de al menos 8 letras, números o signos de puntuación</p>
-<!------ FORMULARIO ------------------------------->
-    <form action="cvCuentaRecuperarNewPass.php" method="POST">             <!----- Enviado para confirmar con la BD -->
-        <input type="password" name="NEW_CONTRASENA" placeholder="Nueva Contraseña" required><br>         <!----- NUEVA CONTRASENA -->
-        <input type="submit" name="Continuar" value="Continuar">           <!------ VALIDAR NUEVA CONTRASEÑA -->
-    </form>
-</body>
+    <?php
+        startBody();
+    //----- TITULO (IMG) -->
+        img_titulo();
+    //------ PARRAFO GUIA ----------------------------->
+        echo '
+            <div class="guia-text">
+                <h5>Crea una contraseña nueva</h5>
+                <p>Ingresa una combinación de al menos 8 letras, números o signos de puntuación</p>
+            </div>
+            ';
+    //------ FORMULARIO ------------------------------->
+        echo '<form action="../controladorVista/cvCuentaRecuperarNewPass.php" method="POST">';             //----- Enviado para confirmar con la BD -->
+        //----- NUEVA CONTRASEÑA (PIN) -->
+            input_new_contrasena();
+        //------ VALIDAR NUEVA CONTRASEÑA -->
+            input_btn_Continuar();
+        echo '</form>';
+        endBody();
+    ?>
 </html>

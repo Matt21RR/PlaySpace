@@ -8,7 +8,7 @@
     //----- TITULO (IMG) -->
         img_titulo();
 //------ FORMULARIO ------------------------------->
-        echo '<form action="cvIniciarSesion.php" method="POST">';       //----- Enviado para confirmar con la BD -->
+        echo '<form action="../controladorVista/cvIniciarSesion.php" method="POST">';       //----- Enviado para confirmar con la BD -->
         //----- NOMBRE_USUARIO -->
             input_nombre_usuario();
         //----- CONTRASEÑA -->

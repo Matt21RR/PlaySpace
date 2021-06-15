@@ -9,12 +9,12 @@
         img_titulo();    
     //------ PARRAFO GUIA ----------------------------->
         echo '
-            <div class="my-5">
-                Ingresa tu correo electrónico
+            <div class="guia-text">
+                <p>Ingresa tu correo electrónico</p>
             </div>
             ';
     //------ FORMULARIO ------------------------------->
-        echo '<form action="cvCuentaRecuperar.php" method="POST">';             //----- Enviado para confirmar con la BD -->
+        echo '<form action="../controladorVista/cvCuentaRecuperar.php" method="POST">';             //----- Enviado para confirmar con la BD -->
         //----- CORREO ELECTRONICO -->
             input_correo();
             echo "<br>";
