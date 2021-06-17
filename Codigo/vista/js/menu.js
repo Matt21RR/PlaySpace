@@ -12,17 +12,20 @@ function openNav() {
 
 window.addEventListener("resize",
   //si el tamaño de la ventana es <= 350px y la foto tiene un tamaño != de 0(lo cual significa que el menu esta abierto)
-  function(){if((window.innerWidth<=350) && (document.getElementById("userPhoto") != "0")){ 
+  function(){if((window.innerWidth<=350) && (document.getElementById("userPhoto").style.width != "0px")){ 
     document.getElementById("mySidenav").style.width = "230px";
-  }else{
+  }else if((window.innerWidth>350) && (document.getElementById("userPhoto").style.width != "0px")){
     document.getElementById("mySidenav").style.width = "270px";
+  }else if(document.getElementById("userPhoto").style.width == "0px"){//mantener cerrado el menu
+    document.getElementById("mySidenav").style.width = "0px";
+    
   }
 });
 
 /* Set the width of the side navigation to 0 */
 function closeNav() {
-  document.getElementById("mySidenav").style.width = "0";
-  document.getElementById("userPhoto").style.width = "0";
-  document.getElementById("userPhoto").style.height = "0";
+  document.getElementById("mySidenav").style.width = "0px";
+  document.getElementById("userPhoto").style.width = "0px";
+  document.getElementById("userPhoto").style.height = "0px";
   document.getElementById("userPhoto").style.border = "unset";
 }
