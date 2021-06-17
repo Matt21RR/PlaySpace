@@ -1,0 +1,30 @@
+Base de Datos elaborada por Jhoy Santiago Moreno Marroquin y Miguel Angel Traslaviña Rodriguez
+La extructura de las tablas y vistas de la base de datos esta documenta en el archivo "Base de datos y normalizacion.pdf"
+Para crear la base de datos simplemente seleccione todo el codigo SQL y ejecutelo
+
+Contenido
+
+-Crear la base de datos: Linea 1
+-Usar la base de datos: Linea 2
+
+-Crear tablas: De la linea 4 a la linea 186
+
+-Insersion de datos(para probar la BD): De la linea 188 a la linea 321
+
+-Crear vistas: De la linea 325 a la linea 378
+
+-Crear disparadores: De la linea 384 a la linea 400
+
+-Crear funciones: De la linea 405 a la linea 445
+	+CANTIDAD_USUARIOS(); //Para saber la cantidad de usuarios registrados en la BD.
+	+CANTIDAD_PEDIDOS_VALIDACION(); //Para saber la cantidad de claves de validacion que existen en la BD.
+	+HAVERSINE(USUARIO_LAT DOUBLE,USUARIO_LON DOUBLE,UBICACION_LAT DOUBLE,UBICACION_LON DOUBLE); //Para saber la distancia entre dos ubicaciones a partir de sus coordenadas Latitud/Longitud.
+-Crear procedimientos almacenados: De la linea 450 a la linea 486
+	+SP_DIFF_FECHAS(a datetime); //Recibe una fecha y la compará con la fecha actual y imprimira "Advertir" en caso de que el tiempo entre fechas sea menor a 7 dias
+				     //o en el caso contrario imprimirá "no advertir".
+	+SP_BUSQUEDA_EVENTO(usuario_lat DOUBLE, usuario_lon DOUBLE, dist INT); //Para conocer todos los eventos cercanos a la ubicacion del usuario a partir de sus coordenadas
+Notas:
+
+-Justo al final de cada Vista, Funcion y Procedimiento almacenado encontrará comentadas dos lineas de codigo SQL, la primera para borrarlo(DROP) y la segunda para probarlo(SELECT).
+Para usarlas, simplemente borre el numeral(#) que se encuentra al principio de la linea y ejecutela.
+
