@@ -73,7 +73,7 @@
         static function validarDatosTienda($datoIngresado=0, $datoSeleccionar){
             $condicion = -1;
             
-            if(($datoIngresado == 0 or $datoIngresado == "") && ($datoSeleccionar == 1 or $datoSeleccionar == 2 or $datoSeleccionar == 4)){
+            if(($datoIngresado == 0 or $datoIngresado == "") && ($datoSeleccionar == 1 or $datoSeleccionar == 2 or $datoSeleccionar == 4 or $datoSeleccionar == 6)){
                 $condicion = 1;
             } else if( $datoSeleccionar > -1 && $datoSeleccionar < 4){
                 if(cValidacion::validarTexto($datoIngresado) == 1){
@@ -97,7 +97,7 @@
                 $datoIngresado = str_replace("'", "", $datoIngresado);
                 $datoIngresado = str_replace(".", "", $datoIngresado);
 
-                if(is_numeric($datoIngresado)){
+                if(is_numeric($datoIngresado) and $datoIngresado > 0){
                     $condicion = 1;
                 }
             } else if($datoSeleccionar == 6){
