@@ -33,6 +33,7 @@
         <div id="options_type_deportivo">
             <?php
                 $deportesTipoDeportivo = ["Futbol", "Voleibol", "Baloncesto"];
+                $value_deportesTipoDeportivo = ["Futbol", "Voleibol", "Baloncesto"];
 
                 for($i=0; $i<count($deportesTipoDeportivo); $i++){ //Condicional para generar las opciones de Deporte Tipo Deportivo
                     $id_option = "option_".$i."_deportivo";  //Nombres de ID para las opciones del tipo de deporte 
@@ -42,8 +43,8 @@
                 echo '<div class="option_deportivo option_sport" id="'.$id_option.'"
                         onclick="btn_opacity('.$btn_opacity.'), send_value_option('.$btn_value_option.')">';
                         echo $deportesTipoDeportivo[$i];    //Caja opción del tipo de tienda deportivo
-                    echo '<input type="hidden" name="option_sport" class="value_option_sport" 
-                            id="'.$id_value_option.'" value="'.$deportesTipoDeportivo[$i].'" disabled>';    //Valor que poseera la opción seleccionada
+                    echo '<input type="hidden" name="option_sport_'.$value_deportesTipoDeportivo[$i].'" class="value_option_sport" 
+                            id="'.$id_value_option.'" value="'.$value_deportesTipoDeportivo[$i].'" disabled>';    //Valor que poseera la opción seleccionada
                 echo '</div>';
                 }
             ?>
@@ -55,6 +56,7 @@
         <div id="options_type_ocio">
             <?php
                 $deportesTipoOcio = ["Ajedrez", "Parquez", "Damas Chinas"];
+                $value_deportesTipoOcio = ["Ajedrez", "Parquez", "Damas_Chinas"];
 
                 for($i=0; $i<count($deportesTipoOcio); $i++){ //Condicional para generar las opciones de Deporte Tipo Ocio
                     $id_option = "option_".$i."_ocio";  //Nombres de ID para las opciones del tipo de deporte 
@@ -64,14 +66,16 @@
                 echo '<div class="option_ocio option_sport" id="'.$id_option.'" 
                         onclick="btn_opacity('.$btn_opacity.'), send_value_option('.$btn_value_option.')">';
                         echo $deportesTipoOcio[$i];         //Caja opción del tipo de tienda ocio
-                    echo '<input type="hidden" name="option_sport" class="value_option_sport" 
-                            id="'.$id_value_option.'" value="'.$deportesTipoOcio[$i].'" disabled>';    //Valor que poseera la opción seleccionada
+                    echo '<input type="hidden" name="option_sport_'.$value_deportesTipoOcio[$i].'" class="value_option_sport"
+                            id="'.$id_value_option.'" value="'.$value_deportesTipoOcio[$i].'" disabled>';    //Valor que poseera la opción seleccionada
                 echo '</div>';
                 }
             ?>
         </div>
-            <a href="pIniciarSesion.php">Cancelar</a>
-        <input type="submit">
+        
+    <!-- BOTONES CANCELAR / CONTINUAR -->
+        <input type="submit" value="Cancelar" name="cancelar">
+        <input type="submit" value="Continuar">
     </form>
 </body>
 </html>
