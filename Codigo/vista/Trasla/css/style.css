@@ -1,10 +1,11 @@
+@font-face {
+  font-family: 'Montserrat';
+  src: url("../fonts/Montserrat-Regular.ttf");
+}
 body
 {
     /*background: linear-gradient(#2e6781, #368cb4);*/
-    background-color: white;
     font-family: "Montserrat";
-    font-size: large;
-    color: white;
     background-attachment: fixed;
 }
 a{
@@ -26,23 +27,17 @@ input{
     max-width: 280px;
     min-width: 120px;
 }
-form{
-    margin: auto;
-    align-content: center;
-    text-align: center;
-    max-width: 300px;
-    min-width: 240px;
-    border-radius: 3px;
-    background-color: rgba(255, 255, 240, 0.8);
+input[type="submit"]{
+  background-color: unset;
+  border:unset;
+  font: inherit;
+  color:inherit;
 }
 hr{
-    color:#64b5f6;
-    opacity:unset;
-    margin: 10px auto;
-    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+  color:#64b5f6;
+  opacity:unset;
+  margin: 10px auto;
 }
-
-
 
 .sidenav {
     height: 100%; /* 100% Full-height */
@@ -53,8 +48,8 @@ hr{
     left: 0;
     background-color: #1976d2; 
     overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 40px; /* Place content 60px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    color: white;
   }
   
   /* The navigation menu links */
@@ -74,6 +69,13 @@ hr{
     margin-right: 30px;
     height:30px;
   }
+
+  .sidenav hr{
+    color:#64b5f6;
+    opacity:unset;
+    margin: 10px auto;
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+  }
   
   /* When you mouse over the navigation links, change their color */
   .sidenav a:hover {
@@ -82,17 +84,19 @@ hr{
   
   /* Position and style the close button (top right corner) */
   .sidenav .closebtn {
-    position: absolute;
-    top: 1px;
+    display: flex;
+    position: sticky;
+    top: 0px;
     left: 0px;
     width: 100%;
-    height: 40px;
+    height: 45px;
     font-size: 18px;
+    font-weight: 900;
     border:unset;
     border-radius: unset;
     background-color: transparent;
-    margin: unset;
-    padding: 6px 10px;
+    margin: auto;
+    padding: unset;
   }
   
   /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
@@ -100,18 +104,14 @@ hr{
     transition: margin-left .5s;
     padding: 20px;
   }
+  #map{
+    width: 100%;
+    height: 100%;
+    border: 1px solid #d0d0d0;
+    padding:0px;
+    border:0px;
+  }
   
-  /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-  @media screen and (max-height: 450px) {
-    hr{margin: 4px auto;}
-    .sidenav {padding-top: 40px;}
-    .sidenav a{margin-bottom: 2px;}
-  }
-  @media screen and (max-height: 400px) {
-    .sidenav a{padding: 0px 0px 0px 8px; height: 26px; font-size: 13.5px;}
-    .userInformation{max-height:80px;}
-    .userPhoto{max-width:60px; max-height:60px;}
-  }
   .menuico{
       padding-right: 12px;
       width: auto;
@@ -124,22 +124,39 @@ hr{
       padding-top:unset;
       padding-bottom: unset;
       background-color: #1e88e5;
-      height:40px;
+      height:45px;
+      font-weight: 900;
   }
   .mainTitle{
       position: sticky;
       top: 0px;
       align-self: center;
+      color: white;
+      font-size: 18px;
   }
   .userInformation{
+      display: block;
+      position: relative;
       width: 100%;
       height:90px;
       border: 1px solid gray;
       font-size: 14px;
   }
+  .shutdown{
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    color:white;
+    font-size: 45px;
+    background-image: url("../png/menuIcons/Logout.svg");
+    background-size: contain;
+    width: 25px;
+    height: 25px;
+    margin:8px;
+  }
   .userPhoto{
-    width: 70px;
-    height:70px;
+    width: 0px;
+    height:0px;
     align-self: center;
     position: absolute;
     border-radius: 4px;
@@ -152,4 +169,22 @@ hr{
     align-items: center;
     padding-top: 2px;
     white-space: nowrap;
+  }
+
+  /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+  @media screen and (max-height: 450px) {
+    .sidenav hr{margin: 4px auto;}
+    .navbar{height:40px;}
+    .sidenav .closebtn{height:40px;}
+    .sidenav a{margin-bottom: 2px;}
+  }
+  @media screen and (max-height: 400px) {
+    .sidenav a{padding: 0px 0px 0px 8px; height: 26px; font-size: 13.5px;}
+    .userInformation{max-height:70px;}
+    .userPhoto{max-width:60px; max-height:60px; margin:5px; margin-left: 15px; margin-right: 0px;}
+  }
+  @media screen and (max-height:300px){
+    .sidenav hr{margin: 0px; color:transparent;}
+    .navbar{height:36px;}
+    .sidenav .closebtn{height: 36px;}
   }
