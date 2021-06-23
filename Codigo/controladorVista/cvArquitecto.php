@@ -1,22 +1,27 @@
 <?php
     $seccion = $_GET['seccion'];
-
+    if(!isset($_SESSION))session_start();
     switch ($seccion) {
+        case '-1'://cerrar sesion
+            session_unset();
+            session_register_shutdown();
+            header("location: ../vista/pInicioSesion.php");
+            break;
         case '1'://Perfil
             header("location: ../vista/vPantallasPerfil/pInformacionPerfil.php");
             break;
         case '2'://Amigos
-            header("location: ../vista/vPantallasAmigos/pListaAmigos.php");
+            header("location: ../vista/pListaAmigos.php");
             break;
         case '3'://Eventos
-            header("location: ../vista/vPantallasEventos/pListaEventosInscritos.php");
+            header("location: ../vista/pListaEventosInscritos.php");
             break;
         case '4'://Busqueda
-            header("location: ../vista/vPantallasBusqueda/pMenuBusqueda.php");
+            header("location: ../vista/pBusqueda.php");
             break;
 
         case '5'://Eventos Creados
-            header("location: ../vista/vPantallasEventos/pListaEventosCreados.php");
+            header("location: ../vista/pListaEventosCreados.php");
             break;
         case '6'://Tiendas Creadas
             header("location: ../vista/vPantallasTiendas/pListaTiendasCreadas.php");

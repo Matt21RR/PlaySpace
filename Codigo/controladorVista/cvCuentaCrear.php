@@ -7,10 +7,13 @@
 
     if(!isset($_SESSION))session_start();
     $id_foto_perfil = $_SESSION['id_foto_perfil'];
-    
-    $id_usuario = cCuentaCrear::crearCuenta($nombre_usuario,$contrasena,$correo,$id_foto_perfil);
+    if(is_numeric($id_foto_perfil)){
+        $id_usuario = cCuentaCrear::crearCuenta($nombre_usuario,$contrasena,$correo,$id_foto_perfil);
+    }else{
+        $id_usuario == -1;
+    }
     //SI SE PUDO CREAR LA CUENTA
-    if($id_usuario != -1){
+    if($id_usuario > 0){
         $_SESSION['ID_USUARIO'] = $id_usuario;
         $_SESSION['NOMBRE_USUARIO'] = $nombre_usuario;
         $_SESSION['ID_FOTO_PERFIL'] = $id_foto_perfil;
