@@ -20,10 +20,10 @@
                 $info_usuario[4] = $fila ['PARTICIPACIONES'];
                 $info_usuario[5] = $fila ['CALIFICACION_EVENTOS'];
                 $info_usuario[6] = $fila ['EVENTOS_REALIZADOS'];
-                $info_usuario[7] = $fila ['FECHA_CLAVE_VERIFICACION'];
+                $info_usuario[7] = $fila ['ID_FOTO_PERFIL'];
             }
             $pos_imprimir=0;
-            while ($pos_imprimir<8){
+            while ($pos_imprimir<7){
                 echo "<script>console.log('mPerfil::pedirEstadisticas->$info_usuario[$pos_imprimir]')</script>";
                 $pos_imprimir++;
             }

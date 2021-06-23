@@ -12,7 +12,7 @@
         static function pedirIDEventosInscrito($ID_USUARIO){
             $lista_eventos[0] = -1;
             $connect=conexionBaseDatos();
-            $sql="SELECT ID_EVENTO from PARTICIPANTES_EVENTO where ID_USUARIO = '$ID_USUARIO'";
+            $sql="SELECT ID_EVENTO from INFO_PARTICIPANTES_EVENTO where ID_PARTICIPANTE = '$ID_USUARIO' AND ADMINISTRADOR = '0'";
             $result = $connect->query($sql);
             $posicion = 0;
             while ($fila = mysqli_fetch_assoc($result)){
@@ -59,6 +59,7 @@
                 $info_basic[2] = $fila['CANTIDAD_INSCRITOS'];
                 $info_basic[3] = $fila['CANTIDAD_PARTICIPANTES'];
                 $info_basic[4] = $fila['FECHA_INICIO'];
+                $info_basic[5] = $fila['TAMANO_EVENTO'];
             }
             echo "<script>console.log('mEventos::pedirIDEventosCreador->')</script>";
             $connect->close();
@@ -68,22 +69,33 @@
          * Consulta la informacion del evento
          * @param   numero  la id del evento a consultar
          * @return  lista   informacion del evento
+         *                  -1 en la primer posicion si no se encuentra nada
          */
         static function pedirInformacionEventos($ID_EVENTO){
+            $info_evento[0] = -1;
             $connect=conexionBaseDatos();
             $sql="SELECT * from EVENTOS where ID_EVENTO = '$ID_EVENTO'";
             $result = $connect->query($sql);
             while ($fila = mysqli_fetch_assoc($result)){
                 $info_evento[0] = $fila ['ID_USUARIO'];//id del creador del Evento
                 $info_evento[1] = $fila ['TAMANO_EVENTO'];
-                $info_evento[2] = $fila ['TIPO_EVENTO'];
-                $info_evento[3] = $fila ['DESCRIPCION'];
-                $info_evento[4] = $fila ['UBICACION_LAT'];
-                $info_evento[5] = $fila ['UBICACION_LON'];
-                $info_evento[6] = $fila ['FECHA_INICIO'];
-                $info_evento[7] = $fila ['FECHA_FIN'];
+                $info_evento[2] = $fila ['CANTIDAD_PARTICIPANTES'];
+                $info_evento[3] = $fila ['TIPO_EVENTO'];
+                $info_evento[4] = $fila ['DESCRIPCION'];
+                $info_evento[5] = $fila ['UBICACION_LAT'];
+                $info_evento[6] = $fila ['UBICACION_LON'];
+                $info_evento[7] = $fila ['FECHA_INICIO'];
+                $info_evento[8] = $fila ['FECHA_FIN'];
+                $info_evento[9] = $fila ['CHAT']; //!Borrar de no ser necesario
             }
-            while ($pos_imprimir<8){
+            //Agregar el nombre del creador del evento
+            $sql = "SELECT NOMBRE_USUARIO FROM USUARIOS WHERE ID_USUARIO = '$info_evento[0]'";
+            $result = $connect->query($sql);
+            while ($fila = mysqli_fetch_assoc($result)){
+                $info_evento[10] = $fila['NOMBRE_USUARIO'];
+            }
+            $pos_imprimir = 0;
+            while ($pos_imprimir<11){
                 echo "<script>console.log('mEventos::pedirInformacionEventos->$info_evento[$pos_imprimir]')</script>";
                 $pos_imprimir++;
             }
@@ -95,9 +107,10 @@
          * @param   numero  id del usuario a añadir.
          * @param   numero  id del evento en donde se añade al usuario
          */
-        static function actualizarListaPaticipantes($ID_EVENTO,$ID_USUARIO){
+        static function actualizarListaParticipantes($ID_EVENTO,$ID_USUARIO){
             $connect=conexionBaseDatos();
-            $sql="INSERT INTO PARTICIPANTES_EVENTO VALUES ('$ID_EVENTO','$ID_USUARIO')";
+            $sql = "INSERT INTO PARTICIPANTES_EVENTO (ID_EVENTO,ID_PARTICIPANTE)
+                    VALUES ('$ID_EVENTO','$ID_USUARIO')";
             $result = $connect->query($sql);
             comprobarDatosAfectados($connect);
             echo "<script>console.log('mEventos::actualizarListaPaticipantes')</script>";
@@ -111,7 +124,7 @@
 
         static function borrarParticipante($ID_EVENTO,$ID_USUARIO){
             $connect=conexionBaseDatos();
-            $sql="delete from PARTICIPANTES_EVENTO where ID_PARTICIPANTE = '$ID_USUARIO'";
+            $sql="DELETE from PARTICIPANTES_EVENTO where ID_PARTICIPANTE = '$ID_USUARIO' AND ID_EVENTO = '$ID_EVENTO'";
             $result = $connect->query($sql);
             
             comprobarDatosAfectados($connect);
@@ -126,22 +139,21 @@
          *                  -1 en la primer posicion si no se encuentran resultados
          */
         static function pedirListaInfoParticipantes($ID_EVENTO){
-            $info_participante[0] = -1;
+            $info_participante[0][0] = -1;
             $connect=conexionBaseDatos();
             $sql= "SELECT * FROM INFO_PARTICIPANTES_EVENTO WHERE ID_EVENTO = '$ID_EVENTO'";
             $result = $connect->query($sql);
+            $pos = 0;
             while ($fila = mysqli_fetch_assoc($result)){
-                $info_participante[0] = $fila['ID_PARTICIPANTE'];
-                $info_participante[1] = $fila['ID_FOTO_PERFIL'];
-                $info_participante[2] = $fila['NOMBRE_USUARIO'];
-                $info_participante[3] = $fila['ADMINISTRADOR'];
-                $info_participante[4] = $fila['CALIFICACION_USUARIO'];
+                $info_participante[$pos][0] = $fila['ID_PARTICIPANTE'];
+                $info_participante[$pos][1] = $fila['ID_FOTO_PERFIL'];
+                $info_participante[$pos][2] = $fila['NOMBRE_USUARIO'];
+                $info_participante[$pos][3] = $fila['ADMINISTRADOR'];
+                $info_participante[$pos][4] = $fila['CALIFICACION_USUARIO'];
+                $pos++;
             }
             echo "<script>console.log('mEventos::pedirListaInfoParticipantes->')</script>";
             $connect->close();
-            return $lista_eventos;
+            return $info_participante;
         }
     }
-    
-    //pedirIDEventosCreador($_GET['ID_USUARIO']);
-    //pedirIDEventosInscrito($_GET['ID_USUARIO']);
