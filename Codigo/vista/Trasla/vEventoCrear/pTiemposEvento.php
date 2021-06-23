@@ -55,9 +55,6 @@
         </div>
     </div>
 </body>
-<script>// Obtener la zona horaria del equipo
-    var resolvedOptions = Intl.DateTimeFormat().resolvedOptions();
-    console.log(resolvedOptions.timeZone);
-    document.getElementById("utc").value = (resolvedOptions.timeZone);
+<script src="../js/timezone.js">// Obtener la zona horaria del equipo
 </script>
 </html>
