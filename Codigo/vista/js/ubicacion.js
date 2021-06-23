@@ -25,7 +25,9 @@
         var latitud = pos.coords.latitude;
         var longitud = pos.coords.longitude;
         var precision = pos.coords.accuracy;
-        console.warn(latitud+""+longitud);
+        
+        window.latitud = latitud;
+		window.longitud = longitud;
 
         var contenedor = document.getElementById("map")
 
@@ -61,26 +63,26 @@
         searchMode = window.searchMode;
 
         if(positionsArray!=-1){//Si existe el array
-            var coords = new Array(60);/*Maximo de resultados posibles */
-            var titles = new Array(60);
-            var idsLocation = new Array(60);
-            var tiposUbicacion = new Array(60);
+            var coords = new Array(100);/*Maximo de resultados posibles */
+            var titles = new Array(100);
+            var idsLocation = new Array(100);
+            var tiposUbicacion = new Array(100);
             for(i=0;i!=positionsArray.length;i++){
-                var latPos = parseFloat(positionsArray[i][0]);//Latitud
-                var lonPos = parseFloat(positionsArray[i][1]);//Longitud
+                var latPos = parseFloat(positionsArray[i][1]);//Latitud
+                var lonPos = parseFloat(positionsArray[i][2]);//Longitud
                 
                 if(searchMode==1){
-                    var idUbicacion = parseInt(posicionsArray[i][2]);//Id del resultado de la busqueda
-                    var tipoUbicacion = parseInt(posicionsArray[i][3]);//evento o tienda
+                    var idUbicacion = parseInt(positionsArray[i][0]);//Id del resultado de la busqueda
+                    var tipoUbicacion = parseInt(positionsArray[i][4]);//evento o tienda
                     idsLocation[i] = idUbicacion;
                     tiposUbicacion[i] = tipoUbicacion;
                 }
                 
-                while(positionsArray[i][2].search('_')!=-1){//remover las "_" y reemplazarlas por espacios
-                    positionsArray[i][2] = positionsArray[i][2].replace('_',' ');
-                }
+                //while(parseInt(positionsArray[i][2]).search('_')!=-1){//remover las "_" y reemplazarlas por espacios
+                //    positionsArray[i][2] = positionsArray[i][2].replace('_',' ');
+                //}
                 coords[i] = { lat: latPos, lng: lonPos };//Coordenadas
-                titles[i] = positionsArray[i][2];//Nombre del tipo de evento - de la tienda
+                titles[i] = "hola"//positionsArray[i][2];//Nombre del tipo de evento - de la tienda
                 
             }
             i=0;
@@ -104,18 +106,18 @@
                         map:map
                     });
                     //la cosa que escucha que marcador se cliquea.
-                    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                    /*google.maps.event.addListener(marker, 'click', (function(marker, i) {
                         return function() {
                             ventanas(i);
                             //TODO: meter aqui lo que sea que haga que la ventana aparezca
                         }
-                    })(marker, i));
+                    })(marker, i));*/
                 }
             }
         }
     }
     // TODO: definir una funcion que mantenga abierta solo una ventana de informacion y cierre las demas
-    function ventanas(i)
+    /*function ventanas(i)
     {
         positionsArray = window.positionsArray;
         for(ventana=0;ventana!=positionsArray.length;ventana++){//para cada ventana hacer los siguiente
@@ -124,4 +126,4 @@
                 document.getElementById(posicionsArray[i][2]+"_"+posicionsArray[i][3]).style.height = "0px";//cerrar la ventana
             }
         }
-    }
+    }*/
