@@ -1,4 +1,11 @@
 <?php
+$tipos = array(
+    "Deportivo",
+    "Ocio"
+);
+$cantTiposStart = 1;
+$cantTipos = 2; //empezar desde 1
+
 $deportes = array(
     "Voleibol",  //1 
     "Baloncesto",//2 
@@ -17,12 +24,12 @@ $deportes = array(
     "Criquet",//15
     "Polo",//16
     "Rugby",//17
-    "Hockey sobre Cesped",//18
+    "Hockey sobre Pasto",//18
     "Hockey sobre Hielo",//19
     "Ciclismo de montaña",//20
     "Ciclismo BMX",//21
     "Esquí",//22
-    "Motociclismo",//23
+    "Motocross",//23
     "Futbol Americano",//24
     "Patinaje sobre hielo"//25
 );
@@ -43,8 +50,9 @@ $masivos = array(
     "Teatro",//202
     "Festival Cultural",//203
     "Festival",//204
-    "Partido o competicion",//205
-    "Carrera"//206
+    "Feria",//205
+    "Partido o competicion",//206
+    "Carrera"//207
 );
 $cantMasivosStart = 201;
-$cantMasivos = 206; //Empezar desde 201
+$cantMasivos = 207; //Empezar desde 201
