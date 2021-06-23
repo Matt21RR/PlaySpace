@@ -42,7 +42,7 @@
                                         $NUEVO_NOMBRE_USUARIO,
                                         $NUEVO_CORREO,
                                         $NUEVA_CONTRASENA,
-                                        $NUEVA_ID_FOTO_PERFIL)
+                                        $NUEVA_ID_FOTO_PERFIL);
 
             echo "<script>console.log('cPerfil::actualizarPerfil')</script>";
         }

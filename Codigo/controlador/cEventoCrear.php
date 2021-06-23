@@ -15,11 +15,11 @@
          * Busca si el usuario tiene creado algun evento
          * @param   numero  id del usuario
          */
-        static function pedirIDCreador($id_usuario=4){// ? TERMINADO
-            if((mEventos::pedirIDEventosCreador($id_usuario))[0] == -1){
+        static function pedirIDCreador(){// ? TERMINADO
+            if((mEventos::pedirIDEventosCreador($_SESSION['ID_USUARIO']))[0] == -1){
                 echo "<script>console.warn('cEventoCrear::pedirIDCreador-> Iniciando creacion de evento')</script>";
-                $_SESSION['id_usuario'] = $id_usuario;
-                $_SESSION['id_evento'] = "$id_usuario"."1";
+                $_SESSION['id_usuario'] = $_SESSION['ID_USUARIO'];
+                $_SESSION['id_evento'] = $_SESSION['ID_USUARIO'].""."1";
                 $_SESSION['data'] = $_SESSION['data'] + 1;
                 $_GET['info'] = 0;
             }else{
@@ -53,21 +53,16 @@
             }
         }
         static function pedirTamanoEspecifico( ){// ? TERMINADO
+            include_once ("../modelo/lists.php");
             $tamEsEv = $_GET['cantidad_paticipantes'];
             $tamEv = $_SESSION['tamano_evento'];
             $tipEv = $_SESSION['tipo_evento'];
             if($tamEv == 1){//un pequeño grupo
-                $individual8 = array(4,5,6,7,8,9,11,16,20,21,22,23,101,102,103,104);//8 personas
                 $iCant = count($individual8)-1;
-                $grupal10 = array(2,10);//10 personas en partido
                 $g1Cant= count($grupal10);
-                $grupal12 = array(1,19);//12
                 $g2Cant= count($grupal12);
-                $grupal14 = array(12,13,17);//14
                 $g3Cant= count($grupal14);
-                $grupal18 = array(14);//18
                 $g4Cant= count($grupal18);
-                $grupal22 = array(3,15,18,24);//22
                 $g5Cant= count($grupal22);
                 //Para saber donde termina un grupo de tipos de eventos
                 $posListArray = array(  $iCant,
@@ -78,9 +73,7 @@
                                         $iCant + $g1Cant + $g2Cant + $g3Cant + $g4Cant + $g5Cant);
                 $listTipEv = array_merge($individual8,$grupal10,$grupal12,$grupal14,$grupal18,$grupal22);
             }elseif($tamEv == 2){
-                $individual = array(4,5,6,7,8,9,11,16,20,21,22,23,101,102,103,104);//40 participantes
                 $iCant = count($individual)-1;
-                $grupal = array(1,2,3,10,12,13,14,15,17,18,19,24);//20 equipos
                 $gCant = count($grupal);
                 
                 $posListArray = array( $iCant, $iCant+$gCant);//Para saber donde termina un grupo de tipos de eventos
@@ -310,6 +303,23 @@
                                                         $_SESSION['fecha_fin'],
                                                         $_SESSION['chat']
                                                         );
+                    //Para auto-inscribir al creador del evento
+                    //en caso de el tamaño del evento sea 0.
+                    if($_SESSION['tamano_evento']==1){ 
+                        mEventos::actualizarListaParticipantes($_SESSION['id_evento'],
+                                                                $_SESSION['id_usuario']);
+                    }
+                    $_SESSION['id_usuario'] = null;
+                    $_SESSION['id_evento'] = null;
+                    $_SESSION['tamano_evento'] = null;
+                    $_SESSION['cantidad_paticipantes'] = null;
+                    $_SESSION['tipo_evento'] = null;
+                    $_SESSION['descripcion'] = null;
+                    $_SESSION['latitud'] = null;
+                    $_SESSION['longitud'] = null;
+                    $_SESSION['fecha_inicio'] = null;
+                    $_SESSION['fecha_fin'] = null;
+                    $_SESSION['chat'] = null;
                     return 1; // * EVENTO CREADO
                 }
             }

@@ -39,7 +39,7 @@
                         echo "<p>";
                         echo "<script>console.warn('Distancia entre puntos menor a ".$limiteDistancia."Mts')</script>";
                         echo "<p>";
-                        include ("vUbicacionSeleccionada.php");
+                        header ("location: ../vista/pUbicacionSeleccionada.php");
                     }else{
                         echo "<p>";
                     echo "<script>console.error('Distancia entre puntos mayor a ".$limiteDistancia."Mts')</script>";
@@ -52,12 +52,12 @@
                     $_SESSION['longitud'] = $_SESSION['coords1'];
                     return header("location: ".$_SESSION[ 'nomArch' ]."?info=0");
                 }else{
-                    include_once ("vUbicacion.php");
+                    header ("location: ../vista/pUbicacionSeleccionar.php");
                 }
             }
             if (($unselectedCoords == 1) || ($voidCoords == 1) || ($coordsOutOfRange == 1)){
             //LLAMAR AL MAPA
-                include_once ("vUbicacion.php");
+                header ("location: ../vista/pUbicacionSeleccionar.php");
             }
         }
         /**
@@ -82,14 +82,31 @@
             $lonDelta = $lonTo - $lonFrom;
         
             $angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) + cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
+            if(!isset($_SESSION))session_start();
+            $_SESSION['dist'] = ($angle * $radioTierra);
             return $angle * $radioTierra;
+        }
+        /**
+         * Realiza calculos basicos sobre la ubicacion del usuario para realizar
+         * la busqueda de puntos de interes. (Convierte las coordenadas de grados a radianes)
+         * @param   float   Latitud posicion actual en grados
+         * @param   float   Longitud posicion actual en grados
+         * @return  array   Longitud y latitud en radianes
+         */
+        static function haversinePreComp($latActual,$lonActual){
+            $latitudRad = deg2rad($latActual);
+            $longitudRad = deg2rad($lonActual);
+            $coords = array($latitudRad,$longitudRad);
+            return $coords;
+        }
+        static function generarUbicacionGPS(){
+
         }
     }if (((array_key_exists('latCustom', $_GET)) && (array_key_exists('lonCustom', $_GET))) || array_key_exists('confirmar', $_GET)){//para que no se ejecute apenas se realize el include
         if(!isset($_SESSION))session_start();
         if(array_key_exists('nomArch', $_SESSION)){
             cUbicacion::generarUbicacionSeleccion();
         }
-        echo "yeah!!";
     }
     
     
