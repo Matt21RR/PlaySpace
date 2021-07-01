@@ -11,4 +11,5 @@
     <?php 
         include_once('comprobaciones.php');     //----- Inclusión de las comprobaciones
         include_once('armarBody.php');      //----- Indicar que deseo ver
+        include_once('../controladorVista/cvTiendaCrear_ObtenerMoneda.php');    //----- Moneda Local
     ?>

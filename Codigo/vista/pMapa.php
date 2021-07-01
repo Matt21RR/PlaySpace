@@ -8,8 +8,6 @@
 <body>
     <h1>MAPA</h1>
 <!----- IR A TIENDA -->
-    <form action="pTiendaCrear.php" method="post">
-        <input type="submit" value="CREAR TIENDA">
-    </form>
+    <a href="pTienda.php">IR A TIENDAS</a>
 </body>
 </html>

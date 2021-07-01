@@ -30,6 +30,25 @@
                 title="Caracteres alfabéticos entre 5 y 30" placeholder="Nombre de la tienda*">
         </label>   <!--- NOMBRE_TIENDA -->
 
+        <label>Tiempo de publicación:
+            <select name="TIEMPO_TIENDA">
+            <?php
+                include_once('../controladorVista/cvTiendaCrear_TiempoPublicacion.php');
+
+                if($tiempoTienda[0] == '7'){ // CON VERSIÓN GRATUITA
+                    for($i=0; $i<count($tiempoTienda); $i++){
+                        echo '<option value="'.$i.'">'.$tiempoTienda[$i].' días | '.$precio_tiempoTienda[$i].' '.$_SESSION['monedaLocal'].'</option>';
+                    }
+                }else{  // SIN VERSIÓN GRATUITA
+                    for($i=0; $i<count($tiempoTienda); $i++){
+                        $j = $i + 1;
+                        echo '<option value="'.$j.'">'.$tiempoTienda[$i].' días | '.$precio_tiempoTienda[$i].' '.$_SESSION['monedaLocal'].'</option>';
+                    }
+                }
+            ?>
+            <select>
+        </label>    <!-- TIEMPO PUBLICACIÓN -->
+
         <label>Teléfono:  
             <input type="tel" name="TELEFONO_TIENDA" pattern="[0-9]{5,15}"
                 title="Dígito entre 5 y 15 caracteres" placeholder="Número telefónico">    
@@ -39,6 +58,10 @@
             <input type="email" name="CORREO_TIENDA" pattern="{15,45}"
                 title="Correo válido entre 15 y 45 caracteres" placeholder="Correo electrónico">
         </label>    <!--- CORREO_TIENDA -->
+        
+        <label>Dirección:  
+            <input type="text" name="DIRECCION_TIENDA" placeholder="Dirección de la tienda">
+        </label>    <!--- DIRECCION_TIENDA -->
 
         <label>Descripción de la tienda: 
             <input type="text" name="DESCRIPCION_TIENDA" 
