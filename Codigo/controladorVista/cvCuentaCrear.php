@@ -1,23 +1,18 @@
 <?php
-    include_once ("../controlador/cCuentaCrear.php");
+//----- SESSION_START (¡¡NO MOVER DE AQUÍ!!)
+    session_start();
 
-    $nombre_usuario = $_GET['nombre_usuario'];
-    $contrasena = $_GET['contrasena'];
-    $correo = $_GET['correo'];
+//----- CONEXIÓN al controlador de la BD Crear Cuenta
+    include_once('../controlador/cCuentaCrear.php');
 
-    if(!isset($_SESSION))session_start();
-    $id_foto_perfil = $_SESSION['id_foto_perfil'];
-    if(is_numeric($id_foto_perfil)){
-        $id_usuario = cCuentaCrear::crearCuenta($nombre_usuario,$contrasena,$correo,$id_foto_perfil);
-    }else{
-        $id_usuario == -1;
-    }
-    //SI SE PUDO CREAR LA CUENTA
-    if($id_usuario > 0){
-        $_SESSION['ID_USUARIO'] = $id_usuario;
-        $_SESSION['NOMBRE_USUARIO'] = $nombre_usuario;
-        $_SESSION['ID_FOTO_PERFIL'] = $id_foto_perfil;
-        header("location: ../vista/pPlantilla.php");
-    }else{//SI NO SE PUDO CREAR LA CUENTA
-        header("location: ../vista/pCuentaCrear.php");
+//----- CREACIÓN DE LA CUENTA
+    $VariableObtenida = cCuentaCrear::crearCuenta($_POST["NOMBRE_USUARIO"],$_POST["CONTRASENA"],$_POST["CORREO"],$_POST["ID_FOTO_PERFIL"]);
+    
+//----- COMPROBACIÓN de la variable optenida tomando encuenta si se creo la cuenta
+    session_unset();    // Eliminar toda la información obtenida almacenada
+    if( $VariableObtenida > 0 ){
+        $_SESSION["ID_USUARIO"] = $VariableObtenida;
+        header('Location: ../vista/pMapa.php');          //----- CARGAR la pantalla principal (Mapa)
+    } else{             
+        header('Location: ../vista/pCuentacrear.php');            //----- REGRESO a CuentaCrear ya que no se creo la cuenta
     }

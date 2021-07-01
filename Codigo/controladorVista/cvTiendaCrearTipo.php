@@ -1,23 +1,35 @@
 <?php
 //----- SESSION_START (¡¡NO MOVER DE AQUÍ!!)
     session_start();
-    
 // Recargar la página (pTiendaCrearTipo) si su opción es cancelar
     if(isset($_POST['cancelar'])) header('Location: ../Vista/pTiendaCrearTipo.php');
-
-    $value_deportesTipoDeportivo = ["Futbol", "Voleibol", "Baloncesto"];
-    for($i=0; $i<count($value_deportesTipoDeportivo); $i++){
-        if(isset($_POST["option_sport_".$value_deportesTipoDeportivo[$i]])) {
-            $_SESSION['opcionesTipoDeportivo'][$i] = $_POST["option_sport_".$value_deportesTipoDeportivo[$i]];
+// LLamado de las listas de las actividades
+    include_once('../vista/lists/actividades.php');
+// Eliminar la información alamcenada anteriormente
+    if(isset($_SESSION['opcionesTipoActividad'])){
+        $_SESSION['opcionesTipoActividad'] = null;
+    }
+// Receptor de las actividades tipo Deportivo / Ocio
+    for($i=0; $i<count($actividades); $i++){
+    // Almacenar las actividades seleccionadas
+        for($j=0; $j<count($actividades[$i]); $j++){
+            if(isset($_POST["option_sport_".$sport_sinEspacio[$i][$j]])){
+                $_SESSION['opcionesTipoActividad'][$i][$j] = $_POST["option_sport_".$sport_sinEspacio[$i][$j]];
+            }
         }
-    };  //Almacena en $_SESSION['opcionesTipoDeportivo'] el nombre de los tipos deportivos seleccionados
-
-    $value_deportesTipoOcio = ["Ajedrez", "Parquez", "Damas_Chinas"];
-    for($i=0; $i<count($value_deportesTipoOcio); $i++){
-        if(isset($_POST["option_sport_".$value_deportesTipoOcio[$i]])) {
-            $_SESSION['opcionesTipoOcio'][$i] = $_POST["option_sport_".$value_deportesTipoOcio[$i]];
+    // Ordenar las actividades
+        if(isset($_SESSION['opcionesTipoActividad'])){
+            if(isset($_SESSION['opcionesTipoActividad'][$i])){
+                sort($_SESSION['opcionesTipoActividad'][$i], 1);
+            }
+            sort($_SESSION['opcionesTipoActividad'], 1);
         }
-    };  //Almacena en $_SESSION['opcionesTipoOcio'] el nombre de los tipos ocio seleccionados
+    }
+// Redirecciona la pagina
+    if(!isset($_SESSION['opcionesTipoActividad'])){
+        header("Location: ../vista/pTiendaCrearTipo.php");
+    } else{
+        header("Location: ../Vista/pTiendaCrearUbicacion.php");
+    }
 
-// Cargar la selección de ubicación
-    header("Location: ../Vista/pTiendaCrearUbicacion.php");
+    
