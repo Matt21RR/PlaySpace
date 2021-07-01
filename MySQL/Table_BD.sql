@@ -25,6 +25,7 @@ CREATE TABLE USUARIOS(
     CALIFICACION_USUARIO DOUBLE NOT NULL DEFAULT 5.0,
     CALIFICACION_EVENTOS DOUBLE,
     FECHA_REPORTE_EVENTO DATETIME,
+    TIENDA_PRUEBA INT NOT NULL DEFAULT 1,
     PRIMARY KEY(ID_USUARIO));
 /*REPORTES*/
 /*ID_USUARIO
@@ -158,9 +159,10 @@ CREATE TABLE TIENDAS(
 NOMBRE_PRODUCTO
 PRECIO_PRODUCTO
 FOTO_PRODUCTO*/
+
 CREATE TABLE PRODUCTOS( 
 	ID_TIENDA INT NOT NULL,
-    ID_PRODUCTO INT NOT NULL,
+    ID_PRODUCTO TEXT NOT NULL,
     NOMBRE_PRODUCTO TEXT NOT NULL, 
     PRECIO_PRODUCTO DOUBLE NOT NULL,
     FOTO_PRODUCTO TEXT,
@@ -199,10 +201,10 @@ INSERT INTO USUARIOS (ID_USUARIO,
                         ID_FOTO_PERFIL,
                         CONTRASENA,
                         CORREO) VALUES(2,
-										'Elquereparte',
+										'JhoyMorenoMar',
 										1,
-										'lasostias',
-										'sinconsagrar@gmail.com');
+										'1a45109660b1b1d11403a3a2022446815de25d06684a530316',
+										'js.marroko313@outlook.com');
 INSERT INTO USUARIOS (ID_USUARIO,
 						NOMBRE_USUARIO,
                         ID_FOTO_PERFIL,
@@ -261,8 +263,8 @@ INSERT INTO	PARTICIPANTES_EVENTO (ID_EVENTO,
 								  ID_PARTICIPANTE) VALUES (41,3);
 INSERT INTO	PARTICIPANTES_EVENTO (ID_EVENTO,
 								  ID_PARTICIPANTE) VALUES (41,5);
-INSERT INTO	PARTICIPANTES_EVENTO (ID_EVENTO,
-								  ID_PARTICIPANTE) VALUES (41,4);
+                                  
+                                  
 INSERT INTO TIENDAS VALUES (1,
 							11,
                             'Tienda balones', 
@@ -277,17 +279,17 @@ INSERT INTO TIENDAS VALUES (1,
 INSERT INTO CHAT_TIENDA VALUES (11,
 								4,
                                 'Aquí venden queso?',
-                                NOW(),
+                                current_timestamp(),
                                 'Nel kbro');
 INSERT INTO CHAT_TIENDA VALUES (11,
 								4,
                                 'Aquí venden queso?',
-                                DATE_ADD(NOW(),INTERVAL 1 DAY),
+                                current_timestamp(),
                                 'Que no wey');
 INSERT INTO CHAT_TIENDA VALUES (11,
 								4,
                                 'Aquí venden queso?',
-                                 DATE_ADD(NOW(),INTERVAL 2 DAY),
+                                 current_timestamp(),
                                 'No andei weando kbron');
 	
 INSERT INTO AMIGOS (ID_CHAT, 
@@ -334,8 +336,8 @@ SELECT  T3.ID_EVENTO AS ID_EVENTO,
         CALIFICACION_USUARIO
 FROM USUARIOS T1, EVENTOS T2, PARTICIPANTES_EVENTO T3
 WHERE T3.ID_PARTICIPANTE = T1.ID_USUARIO
-	AND T3.ID_EVENTO = T2.ID_EVENTO;
-
+	AND T3.ID_EVENTO = T2.ID_EVENTO
+GROUP BY ID_PARTICIPANTE;
     
 #DROP VIEW INFO_PARTICIPANTES_EVENTO;
 #SELECT * FROM INFO_PARTICIPANTES_EVENTO;
@@ -442,52 +444,3 @@ DELIMITER ;
 
 #DROP PROCEDURE SP_DIFF_FECHAS;
 #CALL SP_DIFF_FECHAS('2021-06-01');
-
-#==========================================================
-DELIMITER //
-#las coordenadas del usuario ya estan en radianes
-CREATE FUNCTION HAVERSINE(USUARIO_LAT DOUBLE,USUARIO_LON DOUBLE,UBICACION_LAT DOUBLE,UBICACION_LON DOUBLE) RETURNS DOUBLE
-	BEGIN
-		SET @USU_LAT = USUARIO_LAT;
-        SET @USU_LON = USUARIO_LON;
-    
-		SET @UBI_LAT = RADIANS(UBICACION_LAT);
-        SET @UBI_LON = RADIANS(UBICACION_LON);
-        
-        SET @LAT_DIF = @UBI_LAT - @USU_LAT;
-        SET @LON_DIF = @UBI_LON - @USU_LON;
-        
-        SET @ANGULO = 2*ASIN(SQRT(POW(SIN(@LAT_DIF /2), 2) + COS(@USU_LAT) * COS(@UBI_LAT) * POW(SIN(@LON_DIF/2),2)));
-        RETURN @ANGULO*6371000;
-	END //
-DELIMITER ;
-#=======================================================
-DELIMITER //
-#DISTANCIA	distancia en metros para la distancia maxima entre la ubi del usuario y las ubis de los eventos
-CREATE PROCEDURE SP_BUSQUEDA_EVENTO(usuario_lat DOUBLE, usuario_lon DOUBLE, dist INT)
-	BEGIN
-        SELECT
-			ID_EVENTO,
-			UBICACION_LAT,
-			UBICACION_LON,
-			HAVERSINE(	RADIANS(usuario_lat),
-						RADIANS(usuario_lon),
-						UBICACION_LAT,
-						UBICACION_LON) AS 'DISTANCIA' 
-		FROM 
-			EVENTOS 
-		HAVING 
-			DISTANCIA <= dist;
-	END //
-DELIMITER ;
-#DROP PROCEDURE SP_BUSQUEDA_EVENTO;
-#CALL SP_BUSQUEDA_EVENTO('2.558492','-72.632698',1000);
-#=======================================================
-#SELECT HAVERSINE(RADIANS('2.558492'),RADIANS('-72.632698'),'2.5580204016985615','-72.632698');
-
-#SELECT (HAVERSINE(RADIANS('2.558492'),RADIANS('-72.632698'),UBICACION_LAT,UBICACION_LON)) AS 'DISTANCIA' FROM EVENTOS;
-
-#SELECT ID_EVENTO,UBICACION_LAT,UBICACION_LON,HAVERSINE(RADIANS('2.558492'),RADIANS('-72.632698'),UBICACION_LAT,UBICACION_LON) AS 'DISTANCIA' FROM EVENTOS HAVING DISTANCIA <='1000';
-
-
-
