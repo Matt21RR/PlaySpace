@@ -52,7 +52,6 @@
             }
             echo "<script>console.log('cPerfilEditar::editarPerfil')</script>";
         }
-
         /**
          * Elimina la cuenta indicada por medio del ID de la cuenta de la base de datos
          * @param   entero  ID del usuario
@@ -60,7 +59,6 @@
         static function eliminarCuenta($ID_USUARIO){
             self::borrarCuenta($ID_USUARIO);
         }
-
         /**
          * Comparar la ultima vez que el usuario cambio el nombre de su perfil (NOMBRE_USUARIO)
          * cuyo caso haya superado el tiempo mínimo de 15días desde el ulitmo cambio o desde la creación de la cuenta
@@ -84,5 +82,24 @@
             }
             echo "<script>console.log('cPerfilEditar::compararFechaCambioNombre')</script>";
             return $actualizarNombre;
+        }
+    //-------- BLOQUEO DE PAQUETE (7 días == pack 0) ---------------------------------------------------------------
+        /**
+         *  Actualiza el valor 1 de (No ha creado ninguna tienda y puede adquiir el paquete 0) a
+         *  el valor 0 de (Ha creado una tienda y no puede adquiir el paquete 0)
+         * @param   entero  ID del usuario
+         */
+        static function bloqueoTiendaPrueba($ID_USUARIO){
+            $connect = conexionBaseDatos();
+
+            $sql = "UPDATE USUARIOS 
+                    SET TIENDA_PRUEBA = 0 
+                    WHERE ID_USUARIO = '$ID_USUARIO'";
+                        
+            $result = $connect -> query($sql);
+            comprobarDatosAfectados($connect);
+
+            echo "<script>console.log('mTiendasCrear::bloqueoTiendaPrueba')</script>";
+            $connect -> close();
         }
     }

@@ -16,6 +16,7 @@
          *                      [5] = CALIFICACION_EVENTOS
          *                      [6] = EVENTOS_REALIZADOS
          *                      [7] = ID_FOTO_PERFIL
+         *                      [8] = TIENDA_PRUEBA
          */
         static function consultarPerfil($ID_USUARIO){
             $info_Usuario = self::pedirEstadisticas($ID_USUARIO);

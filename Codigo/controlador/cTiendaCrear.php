@@ -5,6 +5,8 @@
     include_once('../modelo/mTiendaCrear.php');         //-- Herencia --
     include_once('../mMaster.php');
     include_once('cValidacion.php');                    //Temporal
+    include_once('cPerfil.php');                        //Temporal
+    include_once('cPerfilEditar.php');                        //Temporal
     
     class cTiendaCrear extends mTiendaCrear
     {
@@ -14,7 +16,8 @@
          * tomando encuenta el paquete de tiempo seleccionado
          * @param   entero  ID del usuario quien crea la tienda
          * @param   entero  paquete de tiempo seleccionado
-         * @param   entero  1 = Proceso que usara crear tienda unicamente
+         * @param   entero  1 = Crear Tienda
+         *                  0 = Actualizar Fecha Tienda
          * @return  texto   fecha de fin de publicación
          */
         static function ofrecerEspacioPublicitario($ID_USUARIO, $tiempoCompra, $crearTienda=0){
@@ -37,11 +40,10 @@
             echo "<script>console.log('cTiendaCrear::ofrecerEspacioPublicitario')</script>";
             return $FIN_PUBLICACION;
         }
-
         /**
          * Actualiza los la fecha fin de la publicación de la tienda de un usuario
          * @param   entero  ID del usuario
-         * @param   entero  paquete seleecionado por el usuario 
+         * @param   entero  paquete seleccionado por el usuario 
          *                          0 = 7 días
          *                          1 = 30 días
          *                          2 = 60 días
@@ -112,8 +114,18 @@
             }
             return $condicion;
         }
+        /**
+         * Valida la primera creación de una tienda y no pueda volver a obtener los (7 días o Paquete 0) nuevamente
+         * @param   entero  ID de usuario
+         */
+        static function primeraTienda($ID_USUARIO){
+            $info_usuario = cPerfil::consultarPerfil($ID_USUARIO);  // Obtener toda la info del usuario
+            if($info_usuario[8] == 1){
+                cPerfilEditar::bloqueoTiendaPrueba($ID_USUARIO);    // Bloquea el paquete
+            }
+        }
 
-// ------- CREAR PRODUCTOS/ID_TIENDA/TIENDA ------------------------------------------------------
+// ------- CREAR PRODUCTOS / ID_TIENDA / TIENDA ------------------------------------------------------
         /**
          * Creación de productos en la base de datos
          * @param   entero  ID de la tienda en donde se subira el producto
@@ -121,22 +133,37 @@
          * @param   decimal Precio del producto
          * @param   archivo Imagen del producto
          */
-        static function crearProductos($ID_TIENDA, $nombreProducto, $precioProducto, $fotoProducto){
+        static function crearProductos($ID_TIENDA, $nombreProducto, $precioProducto, $fotoProducto, $IDProducto){
 
             if(is_numeric(self::validarDatosTienda($nombreProducto, 3))){               //Validar nombre producto
-                if(is_numeric(self::validarDatosTienda($precioProducto, 5))){           //Validar precio producto
-                    if( 1 == 1){                                                        //Validar foto producto(falta)
-                        $datosProductos = [$nombreProducto, $precioProducto, $fotoProducto];
+                if(is_numeric(self::validarDatosTienda($precioProducto, 5))){           //Validar precio producto                                                   //Validar foto producto(falta)
+                    $datosProductos = [$nombreProducto,$precioProducto,$fotoProducto,$IDProducto];
                         
-                        for($fila = 0; $fila < count($datosProductos); $fila++)
-                        {
-                            $productos[$fila] = $datosProductos[$fila];
-                        }
-                        self::agregarProductos($ID_TIENDA, $productos);                 //Subida del producto a la BD
+                    for($fila = 0; $fila < count($datosProductos); $fila++)
+                    {
+                        $productos[$fila] = $datosProductos[$fila];
                     }
+                    self::agregarProductos($ID_TIENDA, $productos);                 //Subida del producto a la BD
                 }
             }
             echo "<script>console.log('cTiendaCrear::mTiendaCrear')</script>";
+        }
+        /**
+         * Crear la ID de un nuevo producto
+         * @param   entero  ID_TIENDA
+         * @param   entero  ID_USUARIO
+         * @return  texto   ID_PRODUCTO = (ID_TIENDA _ ID_USUARIO _ ID_PRODUCTO_MAX) 
+         */
+        static function crearIDProducto($ID_TIENDA, $ID_USUARIO){
+            $ID_PRODUCTOS = mTiendas::pedirInfoIDProductos($ID_TIENDA); // Adquisición de todas la ID de una tienda especifica
+
+            $ID_USUARIO_TIENDA = $ID_USUARIO."_".$ID_TIENDA."_";    // Parte de la ID_PRODUCTO que sera eliminada
+            for($i=0; $i<count($ID_PRODUCTOS); $i++){
+                $ID_PRODUCTOS[$i] = str_replace($ID_USUARIO_TIENDA,"",$ID_PRODUCTOS[$i]);   // Eliminar parte de la ID (ID_USUARIO_$ID_TIENDA_)
+                $ID_PRODUCTOS[$i] = intval($ID_PRODUCTOS[$i]);  // Conversión de todos los ID a int
+                $ID_PRODUCTO_MAX = max($ID_PRODUCTOS);      // Obtención del ID mayor
+            }
+            return $ID_USUARIO_TIENDA.($ID_PRODUCTO_MAX + 1);    // Retorno del ID_PRODUCTO
         }
         /**
          * Se crea el ID de la tienda teniendo encuenta el ID de usuario del creador y el número de tiendas creadas
@@ -169,6 +196,7 @@
          *                          2 = 60 días
          *                          3 = 90 días
          *                          4 = 120 días
+         * @return  texto   ID de la tienda creada
          */
         static function crearTienda($ID_USUARIO, $nombreTienda, /*$ubicacionTienda,*/ 
                                     $descripcionTienda, $direccionTienda, $contactoTienda, 
@@ -190,10 +218,20 @@
                 $FIN_PUBLICACION = self::ofrecerEspacioPublicitario($ID_USUARIO, $tiempoCompra, $crearTienda);
                 self::enviarInformacionTienda($ID_USUARIO, $ID_TIENDA, $nombreTienda, $descripcionTienda, 
                                             $contactoTienda, $correoTienda, $direccionTienda, $FIN_PUBLICACION);
+                self::deshabilitarTiempoPublicacionPrueba($ID_USUARIO);
             } else{
                 echo "<script>console.error('Tienda no creada')</script>";
             }
             echo "<script>console.log('cTiendaCrear::crearTienda')</script>";
+            return $ID_TIENDA;
         }
-//------------------------------------------------------------------------------------------------
+//-------- TIPO DE PRODUCTOS DE LA TIENDA --------------------------------------------------------------------
+        /**
+         * Ingresa los tipos de actividades con los que la tienda tiene productos
+         * @param   entero  ID Tienda
+         * @param   entero  Número tipo de actividad
+         */
+        static function tipoProductosTienda($ID_TIENDA, $tipoProducto){
+            self::tipoProducto($ID_TIENDA, $tipoProducto);  // Inserción de los tipos de productos
+        }
     }
