@@ -1,0 +1,15 @@
+.cajaRecibirTexto{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 60px;
+    background-color: gray;
+}
+.botonEnviarMensaje{
+    position: absolute;
+    right:0px;
+    bottom:0px;
+    width: 60px;
+    height:60px;
+    background-color:olivedrab;
+}

@@ -1,0 +1,142 @@
+body{  
+    background: linear-gradient(90deg, #282C6C, #254c96);
+    background-size: contain;
+    background-attachment: fixed;
+}
+
+.container-form{
+    background: rgba(0, 0, 0, 0.35);
+    min-width: 300px;
+    width: 90%;
+    max-width: 400px;
+    height: 560px;
+    border-radius: 15px;
+    padding: 20px 35px 0;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.form-control{
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: white;
+    text-align: center;
+}
+
+.form-control:focus {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: #fff;
+    box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
+  }
+
+.form-control::placeholder{
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+}
+
+.btn-form{
+    width: 80%;
+    max-width: 240px;
+    background: #0046c0;
+    border-color: #0046c0;
+    color: white;
+    border-radius: 8px;
+}
+
+.btn-form:hover{
+    color: white;
+}
+
+a{
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+a:hover{
+    color: white;
+}
+
+.linkCrearCuenta{
+    margin-top: 25%;
+}
+
+.guia-text-crear-tienda,
+.guia-text{
+    color: #fff;
+    margin: 0 0 10% 0;
+}
+
+.container-menu{
+    background-color: rgb(175, 232, 255);
+    height: 3rem;
+}
+
+.progress{
+    height: 8px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.container-progress-bar{
+    width: 65%;
+    max-width: 600px;
+    min-width: 200px;
+}
+
+.linea-divisora{
+    background-color: #fff;
+    height: 1px;
+    width: 80%;
+    max-width: 650px;
+    min-width: 220px;
+}
+
+.guia-text-crear-tienda{
+    font-size: 14px;
+    width: 60%;
+    max-width: 500px;
+    min-width: 150px;
+}
+
+#btn_container_type_deportivo,
+#btn_container_type_ocio{
+    padding: 10px;
+    width: 10%;
+    min-width: 100px;
+    max-width: 300px;
+    height: 60px;
+    border-radius: 8px;
+    border: 2px solid rgba(0, 0, 0, 0.4);
+    text-align: start;
+}
+
+#btn_container_type_deportivo{
+    background-color: rgb(56, 168, 56);
+}
+
+#btn_container_type_ocio{
+    background-color: greenyellow;
+}
+
+.option_ocio, .option_deportivo, 
+#btn_container_type_ocio,
+#btn_container_type_deportivo{
+    cursor: pointer;
+}
+
+#btn_container_type_ocio:active,
+.option_ocio:active,
+#btn_container_type_deportivo:active,
+.option_deportivo:active{
+    box-shadow: 0 0 3px #000;
+}
+
+.option_ocio, .option_deportivo{
+    height: 50px;
+    width: 15%;
+    min-width: 80px;
+    max-width: 250px;
+    border-radius: 8px;
+    background-color: chocolate;
+    border: 2px solid rgba(0, 0, 0, 0.4);
+}

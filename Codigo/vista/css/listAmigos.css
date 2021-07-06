@@ -1,0 +1,92 @@
+hr{
+    margin: 4px 4% !important;
+}
+.listSelector{
+    font-size: 14px;
+    display: inline-block;
+    width: 100%;
+    min-width: initial;
+    height: fit-content;
+}
+.buttonSelectorList{
+    font-size: 14px;
+}
+.friend{/*El cuadro donde se meten los componentes de las listas*/
+    position: relative;
+    background-color: #42a5f5;
+    background-attachment: scroll;
+    background-position: left 50%;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    min-width:180px;
+    height:140px;
+    margin:auto;
+    color:white;
+    border: 1px solid #90caf9;
+}
+
+.friendPhoto{
+    background-color: lightcoral;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position-y: center;
+    height: 100%;
+    margin-left: 10px;
+}
+.friend-content{
+    height: 100%;
+    font-size: initial;
+    position: absolute;
+    bottom: 0px;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    
+}
+.friendInfo{
+    padding-left: 5px;
+}
+.friendName{
+    font-size:17px;
+}
+.friendId{
+    font-size:13px;
+}
+.friendOp{
+    height: 30px;
+    margin: unset;
+    margin-right:3px;
+}
+@media screen and (max-width:845px){
+    .friend{height: 130px;}
+}
+@media screen and (max-width:564px){
+    .friend{height: 100px;}
+}
+@media screen and (max-width:633px){
+    .listSelector{padding-left: 10px;padding-right: 10px;}
+}
+@media screen and (max-width:400px){
+    .buttonSelectorList{font-size: 11px;}
+    .friend{height: 90px;}
+    .friendPhoto{margin-left:5px;}
+
+    .friendName{font-size: 13px;}
+    .friendId{font-size: 10px;}
+
+    .friendOp{height: 25px;}
+}
+@media screen and (max-width:350px){
+    .buttonSelectorList{font-size: 10px;}
+    .friend{height: 80px;}
+    .friendOp{height: 22px;}
+    
+}
+@media screen and (max-width: 300px) {
+    .friend{height: 70px;}
+
+    .friendName{font-size: 11px;}
+    .friendId{font-size: 9px;}
+}
+@media screen and (max-width:250px) {
+    .friend{height: 60px;}
+}

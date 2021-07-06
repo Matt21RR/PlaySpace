@@ -1,0 +1,73 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: url("../fonts/Montserrat-Regular.ttf");
+  }
+body
+{
+    /*background-image: url(../svg/backgroud.svg);*/
+    
+    font-family: 'Montserrat';
+    color: black;
+    background: white;
+    background-attachment:fixed;
+    background-position:bottom;
+    background-size:contain;
+    background-repeat: no-repeat;
+    font-size: 14px;
+}
+hr{
+    color:#64b5f6;
+    opacity:unset;
+    margin: 10px auto;
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+.mainListHeader{
+    z-index:1; 
+    top: 30px; 
+    padding-top: 30px;
+    background-color:white;
+}
+.headerList{/*La cabeza de la pagina*/
+    font-size:40px;
+    font-weight: 1000;
+    min-width:180px;
+    border-bottom: 2px solid #42a5f5;
+}
+
+.element{/*El cuadro donde se meten los componentes de las listas*/
+    position: relative;
+    background-color: black;
+    background-attachment: scroll;
+    background-position: left 50%;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    min-width:180px;
+    height:150px;
+    margin:auto;
+    color:white;
+}
+.element-title{
+    font-weight: 800;
+    font-size:larger;
+}
+.element-content{
+    font-size: initial;
+    margin:8px;
+    position: absolute;
+    bottom: 0px;
+    
+}
+@media screen and (max-width:400px){
+    .headerList{font-size:32px;}
+    .element-content{font-size: 12px;}
+    body{font-size: 12px;}
+}
+@media screen and (max-width:350px){
+    .element{height:110px;}
+}
+@media screen and (max-width: 300px) {
+    .headerList{font-size:22px;}
+    .element-content{font-size:11px;}
+    body{font-size: 11px;}
+    .element{height: 90px;}
+}

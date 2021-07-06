@@ -1,0 +1,190 @@
+@font-face {
+  font-family: 'Montserrat';
+  src: url("../fonts/Montserrat-Regular.ttf");
+}
+body
+{
+    /*background: linear-gradient(#2e6781, #368cb4);*/
+    font-family: "Montserrat";
+    background-attachment: fixed;
+}
+a{
+    color: black;
+    outline-color: transparent;
+    text-decoration: none;
+    border-radius: 3px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+img{
+    perspective-origin: center;
+    float: left;
+    display: block;
+    margin: 2px;
+}
+input{
+    max-width: 280px;
+    min-width: 120px;
+}
+input[type="submit"]{
+  background-color: unset;
+  border:unset;
+  font: inherit;
+  color:inherit;
+}
+hr{
+  color:#64b5f6;
+  opacity:unset;
+  margin: 10px auto;
+}
+
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 5; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: #1976d2; 
+    overflow-x: hidden; /* Disable horizontal scroll */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    color: white;
+  }
+  
+  /* The navigation menu links */
+  .sidenav a {
+    padding: 3px 8px 4px 8px;
+    background-color: #115086;
+    border-radius: 8px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-left: 0px;
+    text-decoration: none;
+    font-size: 15px;
+    color: white;
+    display: block;
+    transition: 0.3s;
+    margin-bottom: 10px;
+    margin-right: 30px;
+    height:30px;
+  }
+
+  .sidenav hr{
+    color:#64b5f6;
+    opacity:unset;
+    margin: 10px auto;
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+  }
+  
+  /* When you mouse over the navigation links, change their color */
+  .sidenav a:hover {
+    color: #f1f1f1;
+  }
+  
+  /* Position and style the close button (top right corner) */
+  .sidenav .closebtn {
+    display: flex;
+    position: sticky;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 45px;
+    font-size: 18px;
+    font-weight: 900;
+    border:unset;
+    border-radius: unset;
+    background-color: transparent;
+    margin: auto;
+    padding: unset;
+  }
+  
+  /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+  #main {
+    transition: margin-left .5s;
+    padding: 20px;
+  }
+  #map{
+    width: 100%;
+    height: 100%;
+    border: 1px solid #d0d0d0;
+    padding:0px;
+    border:0px;
+  }
+  
+  .menuico{
+      padding-right: 12px;
+      width: auto;
+      height: 22px;
+      align-self: center;
+      float: left;
+      margin-bottom: 2px;
+  }
+  .navbar{
+      padding-top:unset;
+      padding-bottom: unset;
+      background-color: #1e88e5;
+      height:45px;
+      font-weight: 900;
+  }
+  .mainTitle{
+      position: sticky;
+      top: 0px;
+      align-self: center;
+      color: white;
+      font-size: 18px;
+  }
+  .userInformation{
+      display: block;
+      position: relative;
+      width: 100%;
+      height:90px;
+      border: 1px solid gray;
+      font-size: 14px;
+  }
+  .shutdown{
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    color:white;
+    font-size: 45px;
+    background-image: url("../png/menuIcons/Logout.svg");
+    background-size: contain;
+    width: 25px;
+    height: 25px;
+    margin:8px;
+  }
+  .userPhoto{
+    width: 0px;
+    height:0px;
+    align-self: center;
+    position: absolute;
+    border-radius: 4px;
+    border: 2px solid white;
+    margin:10px;
+    transition: 0.3s;
+  }
+  .sectionText{
+    margin: auto 0px;
+    align-items: center;
+    padding-top: 2px;
+    white-space: nowrap;
+  }
+
+  /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+  @media screen and (max-height: 450px) {
+    .sidenav hr{margin: 4px auto;}
+    .navbar{height:40px;}
+    .sidenav .closebtn{height:40px;}
+    .sidenav a{margin-bottom: 2px;}
+  }
+  @media screen and (max-height: 400px) {
+    .sidenav a{padding: 0px 0px 0px 8px; height: 26px; font-size: 13.5px;}
+    .userInformation{max-height:70px;}
+    .userPhoto{max-width:60px; max-height:60px; margin:5px; margin-left: 15px; margin-right: 0px;}
+  }
+  @media screen and (max-height:300px){
+    .sidenav hr{margin: 0px; color:transparent;}
+    .navbar{height:36px;}
+    .sidenav .closebtn{height: 36px;}
+  }

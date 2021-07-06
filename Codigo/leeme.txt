@@ -1,0 +1,8 @@
+Base de Datos y Pginaelaborada por Jhoy Santiago Moreno Marroquin y Miguel Angel Traslaviña Rodriguez
+ 1-Para crear la base de datos simplemente seleccione todo el codigo SQL y ejecutelo con el MySQL Workbench
+Notas:
+-Justo al final de cada Vista, Funcion y Procedimiento almacenado encontrará comentadas dos lineas de codigo SQL, la primera para borrarlo(DROP) y la segunda para probarlo(SELECT).
+Para usarlas, simplemente borre el numeral(#) que se encuentra al principio de la linea y ejecutela.
+
+ 2-Para ejecutar el programa ingrese a la ruta de la carpeta "vista" desde el navegador.
+
